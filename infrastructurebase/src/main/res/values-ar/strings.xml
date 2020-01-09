@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">infraStructureBase</string>
+    <string name="retryText">إعادة المحاولة</string>
+    <string name="notDataFound">لم يتم العثور علي بيانات</string>
+    <string name="errorMessage">لقد حدث خطأ</string>
+    <string name="submit">إرسال</string>
+    <string name="attachments">المرفقات</string>
+
+    <!-- Network Errors-->
+    <string name="networkError">أنت غير متصل بشبكة wifi او شبكة خلوية حاول الاتصال والمحاولة مرة اخري</string>
+    <string name="networkErrorCode">لا يوجد اتصال بالإنترنت</string>
+    <string name="unknownError">هناك خطأ ما</string>
+    <string name="requestTimeOutError">لم نتمكن من إستجابة طلبك في الوقت المناسب.حاول مرة اخري</string>
+    <string name="errorCodeMalformedJson">MALFORMED_JSON</string>
+    <string name="responseMalformedJson">يوجد خطأ حاول الاتصال مرة أخري</string>
+    <string name="errorCodeConnectFailed">فشل الإتصال</string>
+    <string name="responseConnectFailed">انتهي الإتصال</string>
+
+</resources>

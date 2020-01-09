@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <variable
+                name="title"
+                type="String" />
+
+        <variable
+                name="msg"
+                type="String" />
+    </data>
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text = "Username"
+                android:textAlignment="viewStart"
+                android:text="@{title}"
+                android:visibility="@{title == null ? View.GONE : View.VISIBLE}"
+            />
+
+        <FrameLayout
+                android:id="@+id/defaultFieldContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text = "username require"
+            android:textAlignment="viewStart"
+            android:text="@{msg}"
+            android:visibility="@{msg == null ? View.GONE : View.VISIBLE}"
+            android:textColor="@android:color/holo_red_dark"/>
+
+    </LinearLayout>
+</layout>

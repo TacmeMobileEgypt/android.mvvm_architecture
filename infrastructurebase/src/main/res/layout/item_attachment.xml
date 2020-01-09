@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="com.hamdy.infrastructurebase.forms.fields.attachments.AttachItemModel" />
+        <variable
+            name="pos"
+            type="Integer" />
+
+        <variable
+            name="onAttachAction"
+            type="com.hamdy.infrastructurebase.forms.fields.attachments.OnAttachAction" />
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="delete"
+            android:onClick="@{()->onAttachAction.deleteAttachmentClick(pos , model)}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="filename "
+            android:text="@{model.filePath}"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            bind:imageUri="@{model.fileUri}"
+            tools:src = "@drawable/abc_vector_test"/>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#000"/>
+
+    </LinearLayout>
+</layout>

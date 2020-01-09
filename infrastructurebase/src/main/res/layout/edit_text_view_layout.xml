@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+                name="hint"
+                type="String" />
+
+        <variable
+                name="field"
+                type="com.hamdy.infrastructurebase.form_view.DefaultLayoutFieldView" />
+    </data>
+
+
+    <merge>
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:hint="username"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:inputType="text"
+            android:hint="@{hint}"
+            android:text="@={field.value}"
+            />
+
+        <!--android:text="@={field.value}"-->
+    </merge>
+
+
+</layout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="text"
+            type="String" />
+
+        <variable
+            name="tryAgainText"
+            type="String" />
+
+        <variable
+            name="iTryClick"
+            type="com.hamdy.infrastructurebase.base.base_activity.OnRetryClick" />
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{text}"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                tools:text="No Data Found" />
+
+            <include
+                android:id="@+id/tryAgainLayout"
+                layout="@layout/try_again_btn_layout"
+                app:iTryClick="@{iTryClick}"
+                app:tryAgainText="@{tryAgainText}" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+
+</layout>
