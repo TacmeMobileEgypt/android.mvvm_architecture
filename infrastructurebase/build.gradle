@@ -12,7 +12,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -111,6 +111,10 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     implementation 'com.google.android.gms:play-services-location:11.8.0'
+
+
+    //multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
 
 }
 

@@ -3,6 +3,7 @@ package com.hamdy.infrastructurebase
 import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
+import androidx.multidex.MultiDexApplication
 import com.android.fdf.utils.LocaleHelper
 import com.hamdy.infrastructurebase.utils.LocaleHelperJava
 import org.koin.android.ext.koin.androidContext
@@ -12,7 +13,7 @@ import org.koin.core.module.Module
 import timber.log.Timber
 
 
-abstract class App : Application() {
+abstract class App : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

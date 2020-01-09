@@ -16,18 +16,18 @@ abstract class ApiServiceFactory {
 
     companion object {
 
-        private const val BASE_URL = ApiConstants.HOST
 
-        fun <T>getService(clazz: Class<T> , headers : HashMap<String, String>? = HashMap()) : T {
+        fun <T> getService(apiConfig: APIConfig): T {
+
             return synchronized(this) {
                 val instance = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(provideOkHttpClient(headers))
+                    .baseUrl(apiConfig.getHost())
+                    .client(provideOkHttpClient(apiConfig.getHeaders()))
 //                    .addConverterFactory(MoshiConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(LiveDataCallAdapterFactory())
                     .build()
-                    .create(clazz)
+                    .create(apiConfig.getApiService<T>())
                 instance
             }
         }
