@@ -12,7 +12,7 @@
 
         <variable
                 name="iTryClick"
-                type="com.hamdy.infrastructurebase.base.base_activity.OnRetryClick" />
+                type="com.mte.infrastructurebase.base.base_activity.OnRetryClick" />
     </data>
 
     <merge>

@@ -6,14 +6,14 @@
     <data>
         <variable
             name="model"
-            type="com.hamdy.infrastructurebase.forms.fields.attachments.AttachItemModel" />
+            type="com.mte.infrastructurebase.forms.fields.attachments.AttachItemModel" />
         <variable
             name="pos"
             type="Integer" />
 
         <variable
             name="onAttachAction"
-            type="com.hamdy.infrastructurebase.forms.fields.attachments.OnAttachAction" />
+            type="com.mte.infrastructurebase.forms.fields.attachments.OnAttachAction" />
     </data>
 
     <LinearLayout
