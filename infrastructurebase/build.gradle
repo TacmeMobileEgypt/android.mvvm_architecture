@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-//appcompat
+    //appcompat
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
     //constraintlayout
@@ -104,7 +104,7 @@ dependencies {
     // room
     def room_version = "2.2.1"
     implementation "androidx.room:room-runtime:$room_version"
-//    kapt "androidx.room:room-compiler:$room_version"
+    //    kapt "androidx.room:room-compiler:$room_version"
 
 
     //swiperefreshlayout
