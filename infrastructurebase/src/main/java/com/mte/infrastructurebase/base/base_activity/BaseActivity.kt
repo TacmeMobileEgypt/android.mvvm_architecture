@@ -21,7 +21,7 @@ import com.mte.infrastructurebase.defaults.*
 import com.mte.infrastructurebase.utils.KeyboardUtils
 import com.mte.infrastructurebase.utils.LocaleHelperJava
 
-abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
+open abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
 
     protected var dialogLoading: IDialogLoading? = null
