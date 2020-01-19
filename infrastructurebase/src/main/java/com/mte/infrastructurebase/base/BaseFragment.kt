@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.base.BaseActivity
+import com.mte.infrastructurebase.base.base_activity.BaseActivity
 import com.mte.infrastructurebase.data.source.remote.Resource
 
 abstract class BaseFragment < D : ViewDataBinding>:Fragment() {

@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package com.base
+package com.mte.infrastructurebase.base.base_activity
 
 import android.content.Context
 import android.content.Intent
@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mte.infrastructurebase.base.BaseDialog
-import com.mte.infrastructurebase.base.base_activity.*
 import com.mte.infrastructurebase.defaults.*
 import com.mte.infrastructurebase.utils.KeyboardUtils
 import com.mte.infrastructurebase.utils.LocaleHelperJava

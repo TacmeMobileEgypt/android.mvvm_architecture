@@ -17,7 +17,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.base.BaseActivity
+import com.mte.infrastructurebase.base.base_activity.BaseActivity
 
 
 abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
