@@ -6,20 +6,20 @@ import androidx.databinding.DataBindingUtil
 import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.base.base_activity.IWrapError
 import com.mte.infrastructurebase.base.base_activity.OnRetryClick
-import com.mte.infrastructurebase.databinding.ErrorLayoutBinding
+import com.mte.infrastructurebase.databinding.DefaultErrorLayoutBinding
 
 class DefaultWrapError(val context: Context , val retryText : String? ="Retry") : IWrapError {
 
-    private var databinding: ErrorLayoutBinding? = null
+    private var databinding: DefaultErrorLayoutBinding? = null
 
-    var layoutId : Int = R.layout.error_layout
+    var layoutId : Int = R.layout.default_error_layout
 
     init {
         init()
     }
 
     private fun init() {
-         databinding =  DataBindingUtil.bind<ErrorLayoutBinding>(LayoutInflater.from(context).inflate(layoutId , null) )
+         databinding =  DataBindingUtil.bind<DefaultErrorLayoutBinding>(LayoutInflater.from(context).inflate(layoutId , null) )
     }
 
 
