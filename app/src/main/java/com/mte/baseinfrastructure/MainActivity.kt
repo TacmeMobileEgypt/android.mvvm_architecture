@@ -2,8 +2,8 @@ package com.mte.baseinfrastructure
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-import com.base.BaseActivity
-import com.mte.baseinfrastructure.databinding.ActivityMainBinding
+ import com.mte.baseinfrastructure.databinding.ActivityMainBinding
+import com.mte.infrastructurebase.base.base_activity.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
