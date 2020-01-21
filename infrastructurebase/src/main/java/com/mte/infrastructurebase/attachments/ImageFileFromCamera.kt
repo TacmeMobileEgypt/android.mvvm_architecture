@@ -13,14 +13,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ImageFileFromCamera(activity: Activity,
-                          isMulti : Boolean,
-                          var onTakePhotoListener : OnTakeFilePhotoListener? = null
-) : BaseAttachments(activity , isMulti) {
+class ImageFileFromCamera(activity: Activity ? = null,
+                          isMulti : Boolean = false,
+                          var onTakePhotoListener : OnTakeFilePhotoListener? = null) : BaseAttachments(activity , isMulti) {
 
 
     private var photoURI: Uri? = null
-    private var packageManager = activity.packageManager
+    private var packageManager = activity?.packageManager
     private lateinit var currentPhotoPath: String
 
 
@@ -49,9 +48,12 @@ class ImageFileFromCamera(activity: Activity,
 
     //To save The captured picture
     private fun dispatchSavePictureIntent() {
+
+        if(activity == null) return
+
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager)?.also {
+            takePictureIntent.resolveActivity(packageManager!!)?.also {
                 // Create the File where the photo should go
                 val photoFile: File? = try {
                     createImageFile()
@@ -61,7 +63,7 @@ class ImageFileFromCamera(activity: Activity,
                 // Continue only if the File was successfully created
                 photoFile?.also {
                     photoURI = FileProvider.getUriForFile(
-                        activity!!,
+                        activity,
                         "com.example.android.fileprovider",
                         it
                     )

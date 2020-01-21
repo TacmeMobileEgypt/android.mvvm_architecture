@@ -4,8 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.FrameLayout
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.InverseBindingListener
+import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.attachments.OnAttachmentSelectedListener
+import com.mte.infrastructurebase.databinding.FileAttachLayoutBinding
+import com.mte.infrastructurebase.form_view.fields_views.attachments.FileAttachment
 import com.mte.infrastructurebase.form_view.fields_views.attachments.ImageAttachment
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
 import com.mte.infrastructurebase.form_view.interfaces.IFormControl
@@ -13,18 +20,19 @@ import com.mte.infrastructurebase.forms.fields.attachments.AttachItemModel
 import com.mte.infrastructurebase.forms.interfaces.IRule
 import de.hdodenhof.circleimageview.CircleImageView
 
-open class CircleImageAttachFieldView(
+open class FileAttachFieldView(
     context: Context,
     attributeSet: AttributeSet? = null
-) : CircleImageView(context, attributeSet), IFieldView<AttachItemModel?> {
+) : FrameLayout(context, attributeSet), IFieldView<AttachItemModel?> {
 
 
+    private var binding: FileAttachLayoutBinding? = null
     private var formControl: IFormControl? = null
     private var selectedImage: AttachItemModel? = null
 
      var attachment: List<AttachItemModel?>? = null
 
-    val baseAttachments = ImageAttachment()
+    val baseAttachments = FileAttachment()
 
     private var attrChange: InverseBindingListener? = null
 
@@ -38,17 +46,25 @@ open class CircleImageAttachFieldView(
 
     private fun init() {
 
+        binding =DataBindingUtil.inflate<FileAttachLayoutBinding>(
+            LayoutInflater.from(context),
+            R.layout.file_attach_layout,
+            this,
+            true
+        )
+
+
         baseAttachments.onAttachmentSelectedListener =
             object : OnAttachmentSelectedListener {
                 override fun onAttachmentsSelected(attachments: List<AttachItemModel?>) {
-                    this@CircleImageAttachFieldView.attachment = attachments
+                    this@FileAttachFieldView.attachment = attachments
                     selectedImage = attachment?.get(0)
                     attrChange?.onChange()
                     setValue(selectedImage)
                 }
             }
 
-        setOnClickListener {
+        binding?.root?.setOnClickListener {
             baseAttachments.openSAF()
         }
     }
@@ -73,11 +89,10 @@ open class CircleImageAttachFieldView(
 
     override fun setValue(attachItemModel : AttachItemModel?) {
         try {
-
             formControl?.isValid()
 
-            if(attachItemModel?.fileUri != null)
-                setImageURI(attachItemModel?.fileUri)
+            if(attachItemModel != null)
+                binding?.filename = attachItemModel.file?.name
 
         } catch (ex: Exception) {
             ex.printStackTrace()

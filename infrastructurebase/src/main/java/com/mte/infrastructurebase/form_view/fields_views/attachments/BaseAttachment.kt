@@ -14,9 +14,10 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import com.mte.infrastructurebase.attachments.OnAttachmentSelectedListener
 import com.mte.infrastructurebase.forms.fields.attachments.AttachItemModel
 import com.mte.infrastructurebase.forms.fields.attachments.FilePathUtils
+import java.io.File
 
 
-abstract class BaseAttachmentsView(
+abstract class BaseAttachment(
     var activity: Activity?,
     var isMulti: Boolean = false,
     var onAttachmentSelectedListener : OnAttachmentSelectedListener? = null) {
@@ -151,17 +152,18 @@ abstract class BaseAttachmentsView(
                 val count = data.clipData?.itemCount ?: 0
 
                 for (i in 0 until count) {
+
                     val fileUri = data.clipData?.getItemAt(i)?.uri
+
                     if (fileUri != null) {
-                        val filePath: String? =
-                            FilePathUtils.getFilePath(
-                                activity,
-                                fileUri
-                            )
+
+                        val filePath: String? = FilePathUtils.getFilePath(activity, fileUri)
+
                         pathList.add(
                             AttachItemModel(
                                 filePath,
-                                fileUri
+                                fileUri,
+                                if(filePath == null ) null else File(filePath)
                             )
                         )
                     }
@@ -178,11 +180,11 @@ abstract class BaseAttachmentsView(
                     pathList.add(
                         AttachItemModel(
                             filePath,
-                            fileUri
+                            fileUri,
+                            if(filePath == null ) null else File(filePath)
                         )
                     )
                 }
-
             }
 
         } catch (ex: java.lang.Exception) {

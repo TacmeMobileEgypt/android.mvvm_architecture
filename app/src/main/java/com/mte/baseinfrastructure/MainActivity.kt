@@ -1,5 +1,6 @@
 package com.mte.baseinfrastructure
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import androidx.databinding.ViewDataBinding
@@ -16,6 +17,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         get() = R.layout.activity_main
 
     override fun initUI(savedInstanceState: Bundle?) {
+
+        initForm()
 
         binding.organizationNameET.rules = listOf(Required("asdfasdf"))
 
@@ -37,7 +40,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             })
         }
 
+    }
+
+    private fun initForm() {
+        binding.fileAttach.activity = this
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        binding.fileAttach.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        binding.fileAttach.onActivityResult(requestCode, resultCode, data)
     }
 }
