@@ -3,8 +3,12 @@ package com.mte.infrastructurebase.form_view
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.InverseBindingListener
+import androidx.databinding.ViewDataBinding
 import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.forms.interfaces.IRule
 

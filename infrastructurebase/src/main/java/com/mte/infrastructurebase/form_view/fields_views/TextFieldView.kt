@@ -5,12 +5,13 @@ import android.util.AttributeSet
 import android.widget.EditText
 import androidx.databinding.InverseBindingListener
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
+import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.forms.interfaces.IRule
 
 open class TextFieldView(
     context: Context,
     attributeSet: AttributeSet? = null
-) : EditText(context, attributeSet) , IFieldView {
+) : EditText(context, attributeSet) , IFieldView<String?> {
 
 
     private var attrChange: InverseBindingListener? = null
@@ -48,5 +49,6 @@ open class TextFieldView(
         this.attrChange = attrChange
     }
 
+    override fun setFormControl(formControl: IFormControl?) {}
 
 }

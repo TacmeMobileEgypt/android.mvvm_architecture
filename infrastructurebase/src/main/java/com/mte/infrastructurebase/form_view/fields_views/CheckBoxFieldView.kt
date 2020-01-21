@@ -6,18 +6,19 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import androidx.databinding.InverseBindingListener
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
+import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.forms.interfaces.IRule
 import java.lang.Exception
 
 open class CheckBoxFieldView(
     context: Context,
     attributeSet: AttributeSet? = null
-) : CheckBox(context, attributeSet) , IFieldView {
+) : CheckBox(context, attributeSet) , IFieldView<Boolean?> {
 
 
     private var attrChange: InverseBindingListener? = null
 
-    var rules :  List<IRule<String>>? = null
+    var rules :  List<IRule<Boolean?>>? = null
 
     val validationMessages: ArrayList<String>? = ArrayList()
 
@@ -54,21 +55,23 @@ open class CheckBoxFieldView(
        return validationMessages?.get(0)
     }
 
-    override fun setValue(text: String?) {
+    override fun setValue(b: Boolean?) {
         try {
-            isChecked = text!!.toBoolean()
+            isChecked = b!!
         }catch (ex : Exception){
             ex.printStackTrace()
         }
     }
 
-    override fun getValue(): String? {
-        return if(isChecked) isChecked.toString() else null
+    override fun getValue(): Boolean? {
+        return isChecked
     }
 
     override fun setAttrChange(attrChange: InverseBindingListener) {
         this.attrChange = attrChange
     }
+
+    override fun setFormControl(formControl: IFormControl?) {}
 
 
 }

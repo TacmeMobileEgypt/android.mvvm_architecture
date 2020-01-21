@@ -7,4 +7,5 @@ interface IFormControl {
     fun getTag(): String?
     fun getView(): View?
     fun getValidationView(): IValidationView?
+    fun getFiledView(): IFieldView<*>?
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import com.mte.infrastructurebase.databinding.DefaultFieldLayoutBinding
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
 import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.form_view.interfaces.ILabelView
@@ -16,7 +15,7 @@ import com.mte.infrastructurebase.form_view.interfaces.IValidationView
 
 
     private var validationView: IValidationView? = null
-    private var fieldView: IFieldView? = null
+    private var fieldView: IFieldView<*>? = null
     private var labelView: ILabelView? = null
 
     override fun onFinishInflate() {
@@ -25,12 +24,21 @@ import com.mte.infrastructurebase.form_view.interfaces.IValidationView
         val count = childCount
         for (i in 0 until count){
             val child = getChildAt(i)
-            when(child){
-                is ILabelView -> {labelView = child}
-                is IFieldView -> {fieldView = child}
-                is IValidationView-> {validationView = child}
-            }
+
+            if(child is ILabelView)
+                labelView = child
+
+            if(child is IValidationView)
+                validationView = child
+
+            if(child is IFieldView<*>)
+                fieldView = child
+
+
+            fieldView?.setFormControl(this)
         }
+
+
 
     }
 
@@ -55,5 +63,9 @@ import com.mte.infrastructurebase.form_view.interfaces.IValidationView
 
      override fun getValidationView(): IValidationView? {
          return validationView
+     }
+
+     override fun getFiledView(): IFieldView<*>? {
+        return fieldView
      }
  }

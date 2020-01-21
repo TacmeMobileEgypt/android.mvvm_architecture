@@ -7,6 +7,7 @@ import android.widget.DatePicker
 import android.widget.TextView
 import androidx.databinding.InverseBindingListener
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
+import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.forms.interfaces.IRule
 import com.mte.infrastructurebase.utils.KeyboardUtils
 import java.text.SimpleDateFormat
@@ -17,7 +18,7 @@ import kotlin.collections.ArrayList
 open class DatePickerFieldView(
     context: Context,
     attributeSet: AttributeSet? = null
-) : TextView(context, attributeSet) , IFieldView, DatePickerDialog.OnDateSetListener {
+) : TextView(context, attributeSet) , IFieldView<String?>, DatePickerDialog.OnDateSetListener {
 
 
     private var dateTimestamp: Date?            = null
@@ -167,4 +168,6 @@ open class DatePickerFieldView(
         attrChange?.onChange()
 
     }
+
+    override fun setFormControl(formControl: IFormControl?) {}
 }
