@@ -9,8 +9,8 @@ class ImageAttachments(activity: Activity,
                        onAttachmentSelectedListener : OnAttachmentSelectedListener? = null
 ) : BaseAttachments(activity , isMulti , onAttachmentSelectedListener) {
 
-    override val RESULT_CODE: Int
-        get() = 2999
+    override var RESULT_CODE: Int = 2999
+
 
     override fun createIntent(): Intent? {
         val intent = Intent()

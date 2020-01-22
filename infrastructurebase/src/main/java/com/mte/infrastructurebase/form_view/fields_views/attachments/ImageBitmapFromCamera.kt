@@ -1,10 +1,12 @@
-package com.mte.infrastructurebase.attachments
+package com.mte.infrastructurebase.form_view.fields_views.attachments
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.provider.MediaStore
+import com.mte.infrastructurebase.attachments.BaseAttachments
+import com.mte.infrastructurebase.attachments.OnTakeBitmapPhotoListener
 
 
 class ImageBitmapFromCamera(activity: Activity,
@@ -13,8 +15,7 @@ class ImageBitmapFromCamera(activity: Activity,
 ) : BaseAttachments(activity , isMulti) {
 
 
-    override val RESULT_CODE: Int
-        get() = 112
+    override var RESULT_CODE: Int = 1246
 
     override fun dispatchIntent() {
         dispatchPictureIntent()
