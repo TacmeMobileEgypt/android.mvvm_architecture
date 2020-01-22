@@ -13,8 +13,7 @@ class ImageBitmapFromCamera(activity: Activity,
 ) : BaseAttachments(activity , isMulti) {
 
 
-    override val RESULT_CODE: Int
-        get() = 112
+    override var RESULT_CODE: Int = 1246
 
     override fun dispatchIntent() {
         dispatchPictureIntent()

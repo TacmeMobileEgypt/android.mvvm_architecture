@@ -22,9 +22,7 @@ class ImageFileFromCamera(activity: Activity ? = null,
     private var packageManager = activity?.packageManager
     private lateinit var currentPhotoPath: String
 
-
-    override val RESULT_CODE: Int
-        get() = 113
+    override var RESULT_CODE: Int = 1245
 
     override fun dispatchIntent() {
         dispatchSavePictureIntent()

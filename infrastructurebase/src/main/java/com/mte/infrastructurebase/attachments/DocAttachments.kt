@@ -8,8 +8,9 @@ class DocAttachments(activity: Activity ,
                      isMulti : Boolean = false ,
                      onAttachmentSelectedListener : OnAttachmentSelectedListener? = null
 ) : BaseAttachments(activity , isMulti , onAttachmentSelectedListener) {
-    override val RESULT_CODE: Int
-        get() = 1999
+
+
+    override var RESULT_CODE: Int = 1999
 
     override fun createIntent(): Intent? {
         val intent = Intent()

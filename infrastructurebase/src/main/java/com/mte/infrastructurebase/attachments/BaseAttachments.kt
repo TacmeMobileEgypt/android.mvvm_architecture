@@ -20,7 +20,7 @@ abstract class BaseAttachments(
     var onAttachmentSelectedListener : OnAttachmentSelectedListener ? = null) {
 
 
-    abstract val RESULT_CODE : Int
+    abstract var RESULT_CODE : Int
 
     val filesPathes: ArrayList<String> = ArrayList<String>()
 
