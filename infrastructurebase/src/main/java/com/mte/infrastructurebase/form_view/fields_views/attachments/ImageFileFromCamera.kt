@@ -63,12 +63,12 @@ class ImageFileFromCamera(activity: Activity ? = null,
                 // Continue only if the File was successfully created
                 photoFile?.also {
                     photoURI = FileProvider.getUriForFile(
-                        activity,
+                        activity!!,
                         "com.example.android.fileprovider",
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    activity.startActivityForResult(takePictureIntent, RESULT_CODE)
+                    activity?.startActivityForResult(takePictureIntent, RESULT_CODE)
                 }
             }
         }

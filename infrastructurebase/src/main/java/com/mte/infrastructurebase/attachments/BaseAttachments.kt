@@ -15,8 +15,8 @@ import com.mte.infrastructurebase.forms.fields.attachments.FilePathUtils
 
 
 abstract class BaseAttachments(
-    val activity: Activity?,
-    val isMulti: Boolean = false,
+    var activity: Activity?,
+    var isMulti: Boolean = false,
     var onAttachmentSelectedListener : OnAttachmentSelectedListener ? = null) {
 
 
@@ -71,7 +71,7 @@ abstract class BaseAttachments(
 
     fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>,
+        permissions: Array<out String>,
         grantResults: IntArray
     ) {
         if (requestCode == REQUEST_READ_STORAGE) {
