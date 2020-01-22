@@ -3,7 +3,7 @@ package com.mte.infrastructurebase.forms.fields.attachments.doc_attachment
 import android.app.Activity
 import android.view.View
 import com.mte.infrastructurebase.R
-import com.mte.infrastructurebase.attachments.DocAttachments
+import com.mte.infrastructurebase.form_view.fields_views.attachments.DocAttachments
 import com.mte.infrastructurebase.attachments.OnAttachmentSelectedListener
 import com.mte.infrastructurebase.databinding.DefaultDocAttachFieldBinding
 import com.mte.infrastructurebase.forms.fields.attachments.AttachItemModel
@@ -39,7 +39,8 @@ import java.io.File
 
 
      init {
-         baseAttachments = DocAttachments(activity, isMulti , this)
+         baseAttachments =
+             DocAttachments(activity, isMulti, this)
      }
 
      override fun init() {

@@ -1,10 +1,12 @@
-package com.mte.infrastructurebase.attachments
+package com.mte.infrastructurebase.form_view.fields_views.attachments
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.provider.MediaStore
+import com.mte.infrastructurebase.attachments.BaseAttachments
+import com.mte.infrastructurebase.attachments.OnTakeBitmapPhotoListener
 
 
 class ImageBitmapFromCamera(activity: Activity,

@@ -4,7 +4,7 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.view.View
 import com.mte.infrastructurebase.R
-import com.mte.infrastructurebase.attachments.ImageBitmapFromCamera
+import com.mte.infrastructurebase.form_view.fields_views.attachments.ImageBitmapFromCamera
 import com.mte.infrastructurebase.attachments.OnTakeBitmapPhotoListener
 import com.mte.infrastructurebase.databinding.DefaultImageCameraFieldBinding
 import com.mte.infrastructurebase.forms.fields.attachments.*
@@ -34,7 +34,8 @@ class ImageBitmapFromCameraAttachField(
 
 
     init {
-        baseAttachments = ImageBitmapFromCamera(activity, isMulti , this)
+        baseAttachments =
+            ImageBitmapFromCamera(activity, isMulti, this)
     }
 
     override fun getUploadBtn(): View? = dataBinding?.uploadBtn

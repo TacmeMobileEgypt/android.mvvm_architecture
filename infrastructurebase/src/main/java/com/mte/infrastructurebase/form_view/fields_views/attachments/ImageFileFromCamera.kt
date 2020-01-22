@@ -1,4 +1,4 @@
-package com.mte.infrastructurebase.attachments
+package com.mte.infrastructurebase.form_view.fields_views.attachments
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
+import com.mte.infrastructurebase.attachments.BaseAttachments
+import com.mte.infrastructurebase.attachments.OnTakeFilePhotoListener
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
