@@ -2,7 +2,7 @@ package com.mte.infrastructurebase.form_view.validationRules
 
 import com.mte.infrastructurebase.forms.interfaces.IRule
 
-class IsTrue(val message: String?) : IRule<Boolean?> {
+class RequiredBool(val message: String?) : IRule<Boolean> {
 
     override fun validate(value: Boolean?): String? {
 

@@ -1,5 +1,6 @@
 package com.mte.infrastructurebase.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -144,6 +145,17 @@ abstract class BaseFragment < D : ViewDataBinding>:Fragment() {
         }
     }
 
+    fun showSuccessMsgDialog(message : String?) {
+
+        if(message == null) return
+
+        activity?.let {
+            if (it is BaseActivity<*>) {
+                it.showSuccessMsgDialog(message)
+            }
+        }
+    }
+
     fun showInfoMsgDialog(message : String?) {
 
         if(message == null) return
@@ -248,5 +260,37 @@ abstract class BaseFragment < D : ViewDataBinding>:Fragment() {
 
         return false
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        val count = childFragmentManager.backStackEntryCount
+
+        for(i in 0 until count){
+            val name = childFragmentManager.getBackStackEntryAt(i).name
+            val frag = childFragmentManager.findFragmentByTag(name)
+            if(frag is BaseFragment<*>)
+                frag.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val count = childFragmentManager.backStackEntryCount
+
+        for(i in 0 until count){
+            val name = childFragmentManager.getBackStackEntryAt(i).name
+            val frag = childFragmentManager.findFragmentByTag(name)
+            if(frag is BaseFragment<*>)
+                frag.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
 
 }

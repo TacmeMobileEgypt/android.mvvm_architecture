@@ -7,5 +7,5 @@ import android.location.Location
  */
 interface OnLocationSuccessListener {
 
-    fun onLocationSuccess(location: Location)
+    fun onLocationSuccess(location: Location?)
 }

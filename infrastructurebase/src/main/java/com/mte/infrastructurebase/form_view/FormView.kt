@@ -2,28 +2,37 @@ package com.mte.infrastructurebase.form_view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.databinding.DefaultFormLayoutBinding
 import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.form_view.interfaces.IValidationView
 import com.mte.infrastructurebase.form_view.interfaces.ValidationFieldViewHandler
+import com.mte.infrastructurebase.forms.base.BaseField
+import com.mte.infrastructurebase.forms.interfaces.IRule
+import com.mte.infrastructurebase.forms.interfaces.ValidationHandler
 import java.lang.Exception
 
 class FormView(context: Context , attributeSet: AttributeSet? = null) : LinearLayout(context , attributeSet) {
 
 
     private val fieldsMap = HashMap<String, IFormControl>()
-    private val validationFields: ArrayList<IValidationView?> = ArrayList()
+    private val validationFields: ArrayList<IFormControl?> = ArrayList()
     protected lateinit var dataBinding: DefaultFormLayoutBinding
     private val fields: ArrayList<IFormControl> = ArrayList()
 
     fun validate(validationHandler: ValidationFieldViewHandler) {
         validationFields.clear()
+
         fields.forEach {
             if (!it.isValid())
-                validationFields.add(it.getValidationView())
+                validationFields.add(it)
         }
 
         if (validationFields.size == 0)
@@ -51,7 +60,6 @@ class FormView(context: Context , attributeSet: AttributeSet? = null) : LinearLa
     }
 
     fun addField(field: IFormControl, postion: Int = -1) {
-
         fields.add(field)
         addFieldToForm(field)
     }
@@ -82,11 +90,13 @@ class FormView(context: Context , attributeSet: AttributeSet? = null) : LinearLa
     private fun addFieldToMap(child: IFormControl) {
         fields.add(child)
         if (!child.getTag().isNullOrEmpty())
-            fieldsMap.put(child.getTag()!!, child)
+            fieldsMap[child.getTag()!!] = child
     }
 
     override fun addView(child: View?, index: Int) {
-        super.addView(child, index)
+        if(child != null)
+            super.addView(child, index)
+
         if(child is  IFormControl)
             addFieldToMap(child)
     }
@@ -111,10 +121,8 @@ class FormView(context: Context , attributeSet: AttributeSet? = null) : LinearLa
             for (i in 0 until child.childCount)
                     addchildernViews(child.getChildAt(i))
         }
-
-
-
     }
+
 
 
 }

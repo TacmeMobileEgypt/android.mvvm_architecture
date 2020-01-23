@@ -7,21 +7,21 @@ import androidx.databinding.DataBindingUtil
 import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.base.base_activity.IWrapEmptyData
 import com.mte.infrastructurebase.base.base_activity.OnRetryClick
-import com.mte.infrastructurebase.databinding.EmptyDataLayoutBinding
+import com.mte.infrastructurebase.databinding.DefaultEmptyDataLayoutBinding
 
 
 class DefaultWrapEmptyData(val context: Context, val retryText : String? ="Retry") : IWrapEmptyData {
 
-    private var databinding: EmptyDataLayoutBinding? = null
+    private var databinding: DefaultEmptyDataLayoutBinding? = null
 
-    var layoutId : Int = R.layout.empty_data_layout
+    var layoutId : Int = R.layout.default_empty_data_layout
 
     init {
         init()
     }
 
     private fun init() {
-         databinding =  DataBindingUtil.bind<EmptyDataLayoutBinding>(LayoutInflater.from(context).inflate(layoutId, null) )
+         databinding =  DataBindingUtil.bind<DefaultEmptyDataLayoutBinding>(LayoutInflater.from(context).inflate(layoutId, null) )
     }
 
     override fun addEmptyView(root: ViewGroup?, msge: String?, onRetryClick: OnRetryClick) {

@@ -4,7 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import android.view.View
 import com.mte.infrastructurebase.R
-import com.mte.infrastructurebase.attachments.ImageFileFromCamera
+import com.mte.infrastructurebase.form_view.fields_views.attachments.ImageFileFromCamera
 import com.mte.infrastructurebase.attachments.OnTakeFilePhotoListener
 import com.mte.infrastructurebase.databinding.DefaultImageCameraFieldBinding
 import com.mte.infrastructurebase.forms.fields.attachments.*
@@ -34,7 +34,8 @@ class ImageFileFromCameraAttachField(
 
 
     init {
-        baseAttachments = ImageFileFromCamera(activity, isMulti , this)
+        baseAttachments =
+            ImageFileFromCamera(activity, isMulti, this)
     }
 
     override fun getUploadBtn(): View? = dataBinding?.uploadBtn

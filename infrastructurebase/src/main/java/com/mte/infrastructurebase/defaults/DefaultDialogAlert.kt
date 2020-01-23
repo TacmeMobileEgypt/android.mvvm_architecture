@@ -23,7 +23,7 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String? = "Yes"
 
     private fun init() {
 
-         builder  = if (themeId != -1)
+        builder  = if (themeId != -1)
             AlertDialog.Builder(context ,themeId) else AlertDialog.Builder(context)
 
         builder?.setCancelable(isCancelable)
@@ -69,6 +69,23 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String? = "Yes"
     }
 
     override fun showErrorMsg(msg: String , title : String? ) {
+
+        if(messageDialog?.isShowing == true) return
+
+        builder?.setTitle(title)
+        builder?.setMessage(msg)
+
+        //Yes Action
+        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+            dialog.dismiss()
+        })
+
+        messageDialog = builder?.create()
+
+        messageDialog?.show()
+    }
+
+    override fun showSuccessMsg(msg: String, title: String?) {
 
         if(messageDialog?.isShowing == true) return
 

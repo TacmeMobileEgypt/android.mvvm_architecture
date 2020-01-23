@@ -13,8 +13,9 @@ import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.base.base_activity.OnRetryClick
 import com.mte.infrastructurebase.data.source.remote.Resource
 import com.mte.infrastructurebase.data.source.remote.Status
-import com.mte.infrastructurebase.databinding.EmptyDataLayoutBinding
-import com.mte.infrastructurebase.databinding.ErrorLayoutBinding
+import com.mte.infrastructurebase.databinding.DefaultEmptyDataLayoutBinding
+import com.mte.infrastructurebase.databinding.DefaultErrorLayoutBinding
+
 
 abstract class BaseRVAdapter<T , BINDING : ViewDataBinding>(val context: Context?, var resource: Resource<ArrayList<T>?>? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -41,11 +42,11 @@ abstract class BaseRVAdapter<T , BINDING : ViewDataBinding>(val context: Context
     }
 
     open fun createErrorViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-        return ErrorItem(LayoutInflater.from(parent.context).inflate(R.layout.error_layout, parent, false))
+        return ErrorItem(LayoutInflater.from(parent.context).inflate(R.layout.default_error_layout, parent, false))
     }
 
     open fun createEmptyViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-        return EmptyItem(LayoutInflater.from(parent.context).inflate(R.layout.empty_data_layout, parent, false))
+        return EmptyItem(LayoutInflater.from(parent.context).inflate(R.layout.default_empty_data_layout, parent, false))
     }
 
 
@@ -126,7 +127,7 @@ abstract class BaseRVAdapter<T , BINDING : ViewDataBinding>(val context: Context
     inner class ErrorItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(resource: Resource<*>?) {
-            val binding = DataBindingUtil.bind<ErrorLayoutBinding>(itemView)
+            val binding = DataBindingUtil.bind<DefaultErrorLayoutBinding>(itemView)
             binding?.text = errorMessage
             binding?.tryAgainText = retryAgainText
             binding?.iTryClick = object : OnRetryClick{
@@ -141,7 +142,7 @@ abstract class BaseRVAdapter<T , BINDING : ViewDataBinding>(val context: Context
 
     inner class EmptyItem(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(resource: Resource<*>?) {
-            val binding = DataBindingUtil.bind<EmptyDataLayoutBinding>(itemView)
+            val binding = DataBindingUtil.bind<DefaultEmptyDataLayoutBinding>(itemView)
             binding?.text = emptyDataText
             binding?.tryAgainText = retryAgainText
             binding?.iTryClick = object : OnRetryClick{

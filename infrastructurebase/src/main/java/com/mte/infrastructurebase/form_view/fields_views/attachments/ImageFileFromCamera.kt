@@ -1,4 +1,4 @@
-package com.mte.infrastructurebase.attachments
+package com.mte.infrastructurebase.form_view.fields_views.attachments
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
@@ -7,25 +7,24 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
+import com.mte.infrastructurebase.attachments.BaseAttachments
+import com.mte.infrastructurebase.attachments.OnTakeFilePhotoListener
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ImageFileFromCamera(activity: Activity,
-                          isMulti : Boolean,
-                          var onTakePhotoListener : OnTakeFilePhotoListener? = null
-) : BaseAttachments(activity , isMulti) {
+class ImageFileFromCamera(activity: Activity ? = null,
+                          isMulti : Boolean = false,
+                          var onTakePhotoListener : OnTakeFilePhotoListener? = null) : BaseAttachments(activity , isMulti) {
 
 
     private var photoURI: Uri? = null
-    private var packageManager = activity.packageManager
+    private var packageManager = activity?.packageManager
     private lateinit var currentPhotoPath: String
 
-
-    override val RESULT_CODE: Int
-        get() = 113
+    override var RESULT_CODE: Int = 1245
 
     override fun dispatchIntent() {
         dispatchSavePictureIntent()
@@ -49,9 +48,12 @@ class ImageFileFromCamera(activity: Activity,
 
     //To save The captured picture
     private fun dispatchSavePictureIntent() {
+
+        if(activity == null) return
+
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager)?.also {
+            takePictureIntent.resolveActivity(packageManager!!)?.also {
                 // Create the File where the photo should go
                 val photoFile: File? = try {
                     createImageFile()
@@ -66,7 +68,7 @@ class ImageFileFromCamera(activity: Activity,
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    activity.startActivityForResult(takePictureIntent, RESULT_CODE)
+                    activity?.startActivityForResult(takePictureIntent, RESULT_CODE)
                 }
             }
         }

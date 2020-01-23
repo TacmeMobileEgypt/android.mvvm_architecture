@@ -1,6 +1,7 @@
-package com.mte.infrastructurebase.attachments
+package com.mte.infrastructurebase.form_view.fields_views.attachments
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
@@ -10,14 +11,16 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.checkSelfPermission
+import com.mte.infrastructurebase.attachments.OnAttachmentSelectedListener
 import com.mte.infrastructurebase.forms.fields.attachments.AttachItemModel
 import com.mte.infrastructurebase.forms.fields.attachments.FilePathUtils
+import java.io.File
 
 
-abstract class BaseAttachments(
+abstract class BaseAttachment(
     var activity: Activity?,
     var isMulti: Boolean = false,
-    var onAttachmentSelectedListener : OnAttachmentSelectedListener ? = null) {
+    var onAttachmentSelectedListener : OnAttachmentSelectedListener? = null) {
 
 
     abstract var RESULT_CODE : Int
@@ -37,6 +40,7 @@ abstract class BaseAttachments(
         }
     }
 
+    @SuppressLint("LogNotTimber")
     protected open fun dispatchIntent() {
 
         try {
@@ -66,6 +70,9 @@ abstract class BaseAttachments(
 
 
     private fun checkPermision() : Boolean {
+
+        if(activity == null ) return false
+
         return  checkSelfPermission(activity!!, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -145,17 +152,18 @@ abstract class BaseAttachments(
                 val count = data.clipData?.itemCount ?: 0
 
                 for (i in 0 until count) {
+
                     val fileUri = data.clipData?.getItemAt(i)?.uri
+
                     if (fileUri != null) {
-                        val filePath: String? =
-                            FilePathUtils.getFilePath(
-                                activity,
-                                fileUri
-                            )
+
+                        val filePath: String? = FilePathUtils.getFilePath(activity, fileUri)
+
                         pathList.add(
                             AttachItemModel(
                                 filePath,
-                                fileUri
+                                fileUri,
+                                if(filePath == null ) null else File(filePath)
                             )
                         )
                     }
@@ -172,11 +180,11 @@ abstract class BaseAttachments(
                     pathList.add(
                         AttachItemModel(
                             filePath,
-                            fileUri
+                            fileUri,
+                            if(filePath == null ) null else File(filePath)
                         )
                     )
                 }
-
             }
 
         } catch (ex: java.lang.Exception) {

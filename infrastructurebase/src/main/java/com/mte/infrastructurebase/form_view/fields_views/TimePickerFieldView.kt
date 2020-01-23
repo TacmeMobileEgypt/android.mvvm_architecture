@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.TimePicker
 import androidx.databinding.InverseBindingListener
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
+import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.forms.interfaces.IRule
 import com.mte.infrastructurebase.utils.KeyboardUtils
 import java.lang.Exception
@@ -17,7 +18,7 @@ import kotlin.collections.ArrayList
 open class TimePickerFieldView(
     context: Context,
     attributeSet: AttributeSet? = null
-) : TextView(context, attributeSet) , IFieldView,TimePickerDialog.OnTimeSetListener {
+) : TextView(context, attributeSet) , IFieldView<String?>,TimePickerDialog.OnTimeSetListener {
 
 
      var is24: Boolean = true
@@ -136,6 +137,7 @@ open class TimePickerFieldView(
         timeString = String.format(Locale.ENGLISH, "%02d:%02d", hourOfDay, minute)
         setValue(timeString)
         attrChange?.onChange()
-
     }
+
+    override fun setFormControl(formControl: IFormControl?) {}
 }

@@ -20,7 +20,7 @@ import com.mte.infrastructurebase.defaults.*
 import com.mte.infrastructurebase.utils.KeyboardUtils
 import com.mte.infrastructurebase.utils.LocaleHelperJava
 
-open abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
 
     protected var dialogLoading: IDialogLoading? = null
@@ -144,9 +144,9 @@ open abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     //Add Fragment by fragmentManager
     fun addFragment(fragmentManager : FragmentManager,
-                            fragment : Fragment,
-                            id: Int,
-                            addToBackStack: Boolean) {
+                    fragment : Fragment,
+                    id: Int,
+                    addToBackStack: Boolean) {
 
         val transaction = fragmentManager.beginTransaction()
 
@@ -185,6 +185,14 @@ open abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         if(message == null) return
 
         runOnUiThread { dialogAlert?.showInfoMsg(message) }
+    }
+
+    /**
+     * show message dialog
+     */
+    fun showSuccessMsgDialog(message: String?) {
+        if(message == null) return
+        runOnUiThread { dialogAlert?.showSuccessMsg(message) }
     }
 
     /**
