@@ -1,6 +1,7 @@
 package com.mte.infrastructurebase.base
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.data.source.remote.Resource
 import com.mte.infrastructurebase.databinding.ListItemsBinding
+import kotlinx.android.synthetic.main.list_items.*
 
 
 abstract class ListFragment<D : ViewDataBinding> : BaseFragment<D>() {
@@ -46,4 +48,8 @@ abstract class ListFragment<D : ViewDataBinding> : BaseFragment<D>() {
     }
 
     private fun getSwipeRefreshLayout(): SwipeRefreshLayout?  = if(binding is ListItemsBinding) (binding as  ListItemsBinding).srlList else null
+
+fun setRefreshFalse(){
+    srl_list.visibility = View.GONE
+}
 }
