@@ -110,7 +110,7 @@ open class CircleImageAttachFieldView(
 
     fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>,
+        permissions: Array<out String>,
         grantResults: IntArray
     ) {
         baseAttachments.onRequestPermissionsResult(requestCode, permissions, grantResults)
