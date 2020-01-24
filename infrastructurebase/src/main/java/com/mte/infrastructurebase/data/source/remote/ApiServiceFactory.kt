@@ -38,11 +38,11 @@ abstract class ApiServiceFactory {
             client.addInterceptor(initializeHeaders(headers))//Todo()
             client.readTimeout(60, TimeUnit.SECONDS);
             client.connectTimeout(60, TimeUnit.SECONDS);
-            if(BuildConfig.DEBUG) {
+//            if(BuildConfig.DEBUG) {
                 val interceptor = HttpLoggingInterceptor()
                 interceptor.level = HttpLoggingInterceptor.Level.BODY
                 client.addInterceptor(interceptor)//Add Loggong Intercepter
-            }
+//            }
 
             return client.build()
         }
