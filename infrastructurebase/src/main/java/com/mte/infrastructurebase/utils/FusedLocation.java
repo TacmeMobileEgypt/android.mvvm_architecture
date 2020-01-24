@@ -1,6 +1,7 @@
 package com.mte.infrastructurebase.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -38,6 +39,7 @@ public class FusedLocation {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity);
     }
 
+    @SuppressLint("LogNotTimber")
     public void getLocation(OnSuccessListener<Location> onSuccessListener) {
 
         Log.e(tag, "getLocation");
@@ -56,6 +58,7 @@ public class FusedLocation {
             getLastKnownLocation();
     }
 
+    @SuppressLint("LogNotTimber")
     public void getLocation(OnLocationSuccessListener onLocationSuccessListener) {
 
         Log.e(tag, "getLocation");
