@@ -49,7 +49,5 @@ abstract class ListFragment<D : ViewDataBinding> : BaseFragment<D>() {
 
     private fun getSwipeRefreshLayout(): SwipeRefreshLayout?  = if(binding is ListItemsBinding) (binding as  ListItemsBinding).srlList else null
 
-fun setRefreshFalse(){
-    srl_list.visibility = View.GONE
-}
+
 }
