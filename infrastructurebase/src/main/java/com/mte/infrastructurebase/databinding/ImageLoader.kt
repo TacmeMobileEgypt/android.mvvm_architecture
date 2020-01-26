@@ -5,7 +5,7 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
-import com.mte.infrastructurebase.utils.UtilsImageLoader
+import com.hamdy.infrastructurebase.utils.UtilsImageLoader
 
 
 object ImageLoader{
@@ -17,9 +17,9 @@ object ImageLoader{
     }
 
     @JvmStatic
-    @BindingAdapter("imageUrl" , "error")
-     fun loadImageUrl(view: ImageView, url: String? , error : Drawable?) {
-        UtilsImageLoader.loadImageUrl(view ,url , error )
+    @BindingAdapter("imageUrl" , "error" , "placeholder" , "isProgress" )
+     fun loadImageUrl(view: ImageView, url: String? , error : Drawable? = null ,  placeholder : Drawable? = null,  isProgress : Boolean = true) {
+        UtilsImageLoader.loadImageUrl(view ,url , error , placeholder , isProgress)
     }
 
     @JvmStatic
