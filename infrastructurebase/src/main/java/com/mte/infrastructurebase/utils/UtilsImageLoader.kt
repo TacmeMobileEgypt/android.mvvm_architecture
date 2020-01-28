@@ -55,7 +55,7 @@ object  UtilsImageLoader {
                         LayoutInflater.from(context),
                         R.layout.layout_loading_dialog_default,
                         parent,
-                        true
+                        false
                     ).apply {
 
                         root.also {
@@ -113,6 +113,10 @@ object  UtilsImageLoader {
                     it.layoutParams = layoutParams
                 }
 
+
+                if ( loadingBinding.root.parent != null) {
+                    ( loadingBinding.root.parent as ViewGroup).removeView( loadingBinding.root) // <- fix
+                }
 
                 parent.addView(loadingBinding.root , layoutParams)
             }

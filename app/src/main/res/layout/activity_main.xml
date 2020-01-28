@@ -16,6 +16,24 @@
             android:orientation="vertical"
             tools:context=".modules.auth.recover_password.RecoverPasswordFragment">
 
+
+            <!--Image-->
+            <ImageView
+                android:id="@+id/imageIV"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_color="?attr/colorPrimary"
+                app:civ_border_width="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:imageUrl="@{`http://shortage.revival.sa/assets/images/users/no-image.png`}"
+                app:error="@{@drawable/ic_launcher_background}"
+                app:placeholder="@{@drawable/ic_launcher_background}"
+                app:isProgress="@{true}"
+                />
+
             <!--Organization Name-->
             <com.mte.infrastructurebase.form_view.FormControlView
                 android:layout_width="match_parent"
