@@ -3,26 +3,31 @@ package com.mte.infrastructurebase.forms.fields.attachments
 import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.text.TextUtils
+import java.io.File
 
 
 object FileUtils {
 
 
-    @SuppressLint("NewApi")
-    fun getPath(context: Context, uri: Uri): String? {
-        val isKitKat = true
+    fun getPath(context: Context, uri: Uri?, intent: Intent? = null): String? {
+
+
+        if(uri == null) return null
 
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+        if (Build.VERSION.SDK_INT >= 19 && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
+
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 val type = split[0]
@@ -32,9 +37,21 @@ object FileUtils {
                 }
                 // TODO handle non-primary volumes
             } else if (isDownloadsDocument(uri)) {
+
+                if(Build.VERSION.SDK_INT == 28){
+
+                    val uri: Uri? = intent?.data
+                    val file = File(uri?.path) //create path from uri
+
+                    val split = file.path.split(":").toTypedArray() //split the path.
+
+                    return  split[1] //assign it to a string(your choice).
+                }
+
                 val id = DocumentsContract.getDocumentId(uri)
                 val contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id))
                 return getDataColumn(context, contentUri, null, null)
+
             } else if (isMediaDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -92,11 +109,12 @@ object FileUtils {
 
 
     fun getDataColumn(context: Context, uri: Uri?, selection: String?, selectionArgs: Array<String>?): String? {
+        if(uri == null) return null
         var cursor: Cursor? = null
         val column = "_data"
         val projection = arrayOf(column)
         try {
-            cursor = context.contentResolver.query(uri!!, projection, selection, selectionArgs, null)
+            cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             if (cursor != null && cursor!!.moveToFirst()) {
                 val index = cursor!!.getColumnIndexOrThrow(column)
                 return cursor!!.getString(index)
@@ -113,10 +131,10 @@ object FileUtils {
      * @param context
      * @return
      */
-    fun getFileName(context: Context, uri: Uri): String? {
+    fun getFileName(context: Context, uri: Uri?): String? {
 
         var fileName: String? = null
-        if (uri.scheme == "content") {
+        if (uri?.scheme == "content") {
             val cursor = context.contentResolver.query(uri, null, null, null, null)
             if (cursor != null) {
                 try {
@@ -131,7 +149,7 @@ object FileUtils {
             }
         }
         if (TextUtils.isEmpty(fileName)) {
-            fileName = uri.path
+            fileName = uri?.path
             val cut = fileName!!.lastIndexOf('/')
             if (cut != -1) {
                 fileName = fileName.substring(cut + 1)
