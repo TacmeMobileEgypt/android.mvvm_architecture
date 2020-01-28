@@ -15,7 +15,7 @@ import java.net.UnknownHostException
 import java.util.regex.Pattern
 import kotlin.String as String1
 
- sealed class ApiResponse<T : BaseResponseModel?> {
+ sealed class ApiResponse<T> {
 
     companion object {
 
