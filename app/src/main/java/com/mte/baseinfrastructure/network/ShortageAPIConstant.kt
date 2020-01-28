@@ -1,6 +1,7 @@
 package com.mte.baseinfrastructure.network
 
 import com.mte.infrastructurebase.data.source.remote.APIConfig
+import com.mte.infrastructurebase.data.source.remote.ErrorHandler
 import java.util.HashMap
 
 /**
@@ -29,6 +30,10 @@ class ShortageAPIConstant : APIConfig() {
                     put("Content-Type", "application/json")
 //                    put("Authorization", "Bearer ${ShortageApp.user?.token}")
                 }
+    }
+
+    override fun getErrorHandler(): ErrorHandler? {
+        return null
     }
 
     override fun getHost(): String {

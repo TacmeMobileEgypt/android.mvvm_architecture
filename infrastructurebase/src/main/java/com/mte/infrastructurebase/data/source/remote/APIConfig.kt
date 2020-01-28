@@ -12,5 +12,6 @@ abstract class APIConfig {
     abstract fun getBaseUrl() : String
     abstract fun <T> getApiService() :  Class<T>
     abstract fun getHeaders(): HashMap<String, String>?
+    abstract fun getErrorHandler(): ErrorHandler?
 
 }

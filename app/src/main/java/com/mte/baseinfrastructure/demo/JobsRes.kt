@@ -9,4 +9,8 @@ class JobsRes : DemoResponseModel(){
     override fun getSuccess(): Any? {
         return data
     }
+
+    override fun getError(): String? {
+        return null
+    }
 }

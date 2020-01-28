@@ -15,7 +15,7 @@ import java.net.UnknownHostException
 import java.util.regex.Pattern
 import kotlin.String as String1
 
- open class ApiResponse<T : BaseResponseModel?>() {
+ sealed class ApiResponse<T : BaseResponseModel?> {
 
     companion object {
 
@@ -34,7 +34,7 @@ import kotlin.String as String1
                 val body = response.body()
 
                 if (body is BaseResponseModel && body.getSuccess() == null) {
-                    ApiErrorResponse(body.error ?: getCustomErrorMessage(Throwable(body.error)))
+                    ApiErrorResponse(body.getError() ?: getCustomErrorMessage(Throwable(body.getError())))
                 } else if (body == null || response.code() == 204) {
                     ApiEmptyResponse()
                 } else {
@@ -48,7 +48,7 @@ import kotlin.String as String1
 
                 val errorBody = response.errorBody()?.string()
 
-                val errorFromBody = ApiResponse<T>().getErrorFromBody(errorBody)
+                val errorFromBody = ApiServiceFactory.errorHandler?.getErrorFromBody(errorBody)
 
                 val errorMsg = if(errorBody == null) response.message() else errorFromBody
 
@@ -76,10 +76,6 @@ import kotlin.String as String1
                 context.getString(R.string.unknownError)
             }
         }
-    }
-
-    open fun getErrorFromBody(errorBody: kotlin.String?): kotlin.String?{
-        return Gson().fromJson(errorBody , BaseResponseModel::class.java).error
     }
 }
 
