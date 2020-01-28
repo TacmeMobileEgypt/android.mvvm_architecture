@@ -7,7 +7,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-abstract class NetworkBoundResource<ResultType, ResponseType : BaseResponseModel?>
+abstract class NetworkBoundResource<ResultType, ResponseType>
 constructor(private val contextProviders: ContextProviders) {
 
     var itemsData: ResultType? = null

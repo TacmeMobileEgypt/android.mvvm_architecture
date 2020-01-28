@@ -84,7 +84,7 @@ import kotlin.String as String1
  */
 class ApiEmptyResponse<T : BaseResponseModel> : ApiResponse<T>()
 
-data class ApiSuccessResponse<T : BaseResponseModel?>(
+data class ApiSuccessResponse<T>(
     val body: T,
     val links: Map<String1, String1>
 ) : ApiResponse<T>() {
