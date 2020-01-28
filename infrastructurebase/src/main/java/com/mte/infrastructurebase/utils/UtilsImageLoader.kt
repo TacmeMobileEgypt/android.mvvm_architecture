@@ -160,7 +160,6 @@ object  UtilsImageLoader {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .priority(Priority.HIGH)
                 .placeholder(placeholder)
-                .circleCrop()
 
             Glide.with(context)
                 .load(imageUrl)
