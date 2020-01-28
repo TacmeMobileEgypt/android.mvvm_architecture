@@ -22,12 +22,12 @@ import kotlin.String as String1
         private val TAG: kotlin.String = "ApiResponse"
 
         @SuppressLint("LogNotTimber")
-        fun <T : BaseResponseModel?> create(error: Throwable): ApiErrorResponse<T> {
+        fun <T> create(error: Throwable): ApiErrorResponse<T> {
             Log.e("ApiResponse", error.message)
             return ApiErrorResponse(getCustomErrorMessage(error))
         }
 
-        fun <T : BaseResponseModel> create(response: Response<T>): ApiResponse<T> {
+        fun <T> create(response: Response<T>): ApiResponse<T> {
 
             return if (response.isSuccessful) {
 
@@ -82,7 +82,7 @@ import kotlin.String as String1
 /**
  * separate class for HTTP 204 responses so that we can make ApiSuccessResponse's body non-null.
  */
-class ApiEmptyResponse<T : BaseResponseModel> : ApiResponse<T>()
+class ApiEmptyResponse<T> : ApiResponse<T>()
 
 data class ApiSuccessResponse<T>(
     val body: T,
@@ -129,4 +129,4 @@ data class ApiSuccessResponse<T>(
     }
 }
 
-data class ApiErrorResponse<T : BaseResponseModel?>(val errorMessage: String1) : ApiResponse<T>()
+data class ApiErrorResponse<T >(val errorMessage: String1) : ApiResponse<T>()

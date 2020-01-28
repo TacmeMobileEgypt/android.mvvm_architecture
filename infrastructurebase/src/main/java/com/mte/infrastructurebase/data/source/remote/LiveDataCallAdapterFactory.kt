@@ -23,6 +23,6 @@ class LiveDataCallAdapterFactory : Factory() {
             throw IllegalArgumentException("resource must be parameterized")
         }
         val bodyType = Factory.getParameterUpperBound(0, observableType)
-        return LiveDataCallAdapter<BaseResponseModel>(bodyType)
+        return LiveDataCallAdapter<Any>(bodyType)
     }
 }
