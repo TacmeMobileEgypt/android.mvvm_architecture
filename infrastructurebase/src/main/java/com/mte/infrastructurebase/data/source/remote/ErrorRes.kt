@@ -2,6 +2,6 @@ package com.mte.infrastructurebase.data.source.remote
 
 open class ErrorRes {
 
-    var error : String? = null
-    var code : Int? = null
+    open val error : String? = null
+    open var code : Int? = null
 }

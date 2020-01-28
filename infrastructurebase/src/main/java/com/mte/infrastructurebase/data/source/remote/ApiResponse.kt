@@ -15,20 +15,19 @@ import java.net.UnknownHostException
 import java.util.regex.Pattern
 import kotlin.String as String1
 
-@Suppress("unused") // T is used in extending classes
-sealed class ApiResponse<T> {
+ open class ApiResponse<T : BaseResponseModel?>() {
 
     companion object {
 
         private val TAG: kotlin.String = "ApiResponse"
 
         @SuppressLint("LogNotTimber")
-        fun <T> create(error: Throwable): ApiErrorResponse<T> {
+        fun <T : BaseResponseModel?> create(error: Throwable): ApiErrorResponse<T> {
             Log.e("ApiResponse", error.message)
             return ApiErrorResponse(getCustomErrorMessage(error))
         }
 
-        fun <T> create(response: Response<T>): ApiResponse<T> {
+        fun <T : BaseResponseModel> create(response: Response<T>): ApiResponse<T> {
 
             return if (response.isSuccessful) {
 
@@ -36,7 +35,7 @@ sealed class ApiResponse<T> {
 
                 if (body is BaseResponseModel && body.getSuccess() == null) {
                     ApiErrorResponse(body.error ?: getCustomErrorMessage(Throwable(body.error)))
-                }else if (body == null || response.code() == 204) {
+                } else if (body == null || response.code() == 204) {
                     ApiEmptyResponse()
                 } else {
                     ApiSuccessResponse(
@@ -47,25 +46,21 @@ sealed class ApiResponse<T> {
 
             } else {
 
-                val msg = response.errorBody()?.string()
+                val errorBody = response.errorBody()?.string()
 
-                val error = Gson().fromJson(msg , ErrorRes::class.java)
+                val errorFromBody = ApiResponse<T>().getErrorFromBody(errorBody)
 
-                val errorMsg = if (error.error?.isEmpty() == null) {
-                    response.message()
-                } else {
-                    error.error
-                }
+                val errorMsg = if(errorBody == null) response.message() else errorFromBody
 
                 ApiErrorResponse(errorMsg ?: getCustomErrorMessage(Throwable(errorMsg)))
             }
         }
 
         @SuppressLint("LogNotTimber")
-        fun getCustomErrorMessage(error: Throwable): String1 {
+        fun getCustomErrorMessage(error: Throwable): kotlin.String {
 
             val context = App.appInstance.applicationContext
-            Log.e(TAG , "getCustomErrorMessage ${error.message}")
+            Log.e(TAG, "getCustomErrorMessage ${error.message}")
 
             return if (error is SocketTimeoutException) {
                 context.getString(R.string.requestTimeOutError)
@@ -80,19 +75,20 @@ sealed class ApiResponse<T> {
             } else {
                 context.getString(R.string.unknownError)
             }
-
-
         }
+    }
 
+    open fun getErrorFromBody(errorBody: kotlin.String?): kotlin.String?{
+        return Gson().fromJson(errorBody , BaseResponseModel::class.java).error
     }
 }
 
 /**
  * separate class for HTTP 204 responses so that we can make ApiSuccessResponse's body non-null.
  */
-class ApiEmptyResponse<T> : ApiResponse<T>()
+class ApiEmptyResponse<T : BaseResponseModel> : ApiResponse<T>()
 
-data class ApiSuccessResponse<T>(
+data class ApiSuccessResponse<T : BaseResponseModel?>(
     val body: T,
     val links: Map<String1, String1>
 ) : ApiResponse<T>() {
@@ -134,8 +130,7 @@ data class ApiSuccessResponse<T>(
             return links
         }
 
-
     }
 }
 
-data class ApiErrorResponse<T>(val errorMessage: String1) : ApiResponse<T>()
+data class ApiErrorResponse<T : BaseResponseModel?>(val errorMessage: String1) : ApiResponse<T>()

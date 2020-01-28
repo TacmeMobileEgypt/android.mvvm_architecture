@@ -1,9 +1,8 @@
 package com.mte.baseinfrastructure.demo
 
-import com.mte.baseinfrastructure.demo.JobModel
-import com.mte.baseinfrastructure.network.BaseResponseModel
+import com.mte.baseinfrastructure.network.DemoResponseModel
 
-open class JobsRes : BaseResponseModel(){
+class JobsRes : DemoResponseModel(){
 
     val data : List<JobModel>? = null
 
