@@ -63,4 +63,7 @@ dependencies {
     //constraintlayout
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
+    //Circle image view
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
 }

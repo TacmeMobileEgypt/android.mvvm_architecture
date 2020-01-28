@@ -178,6 +178,154 @@ object  UtilsImageLoader {
 
     }
 
+
+
+    open fun loadImageUri(
+        imageView: ImageView,
+        imageUri: Uri?,
+        error: Drawable? = null,
+        placeholder: Drawable? = null,
+        isProgress: Boolean = true
+    ) {
+
+        Log.e(TAG, "loadImage $imageUri")
+        val context = imageView.context
+        val parent = imageView.parent as ViewGroup
+        var loadingBinding: LayoutLoadingDialogDefaultBinding? = null
+
+        try {
+
+
+            if (isProgress) {
+
+                loadingBinding =
+                    DataBindingUtil.inflate<LayoutLoadingDialogDefaultBinding>(
+                        LayoutInflater.from(context),
+                        R.layout.layout_loading_dialog_default,
+                        parent,
+                        false
+                    ).apply {
+
+                        root.also {
+                            it.layoutDirection = if(LocaleHelperJava.isArabic(context)) View.LAYOUT_DIRECTION_RTL else View.LAYOUT_DIRECTION_LTR
+                            it.layoutParams.width = imageView.layoutParams.width
+                            it.layoutParams.height = imageView.layoutParams.height
+                            it.setPadding(0 ,0 ,0 ,0)
+                            it.id = imageView.id
+                        }
+
+                        contentLoading.also {
+                            it.layoutParams.also {lp ->
+                                if(imageView.layoutParams.width <= 120){
+                                    lp.width = imageView.layoutParams.width
+                                    lp.height = imageView.layoutParams.height
+                                }
+                            }
+//
+                        }
+                    }
+
+
+                val layoutParams: ViewGroup.LayoutParams
+
+                //If Parent is ConstraintLayout
+                if (parent is ConstraintLayout) {
+
+                    val params = imageView.layoutParams as ConstraintLayout.LayoutParams
+
+                    layoutParams = ConstraintLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                        ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+
+                        startToStart = params.startToStart
+                        startToEnd = params.startToEnd
+                        endToEnd = params.endToEnd
+                        endToStart = params.endToStart
+
+                        topToTop = params.topToTop
+                        topToBottom = params.topToBottom
+                        bottomToBottom = params.bottomToBottom
+                        bottomToTop = params.bottomToTop
+
+                        topMargin = params.topMargin
+
+                        width = params.width
+                        height = params.height
+                    }
+
+                } else
+                    layoutParams = imageView.layoutParams
+
+                loadingBinding.root.also {
+                    it.layoutParams = layoutParams
+                }
+
+
+                if ( loadingBinding.root.parent != null) {
+                    ( loadingBinding.root.parent as ViewGroup).removeView( loadingBinding.root) // <- fix
+                }
+
+                parent.addView(loadingBinding.root , layoutParams)
+            }
+
+            val glideCallback = object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+
+                    Handler().post {
+
+                        if(error != null ) {
+                            imageView.setImageDrawable(error)
+                            parent.removeView(loadingBinding?.root)
+                        }
+
+                    }
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Handler().post {
+                        imageView.setImageDrawable(resource)
+                        parent.removeView(loadingBinding?.root)
+                    }
+                    return true
+                }
+            }
+
+            val options = RequestOptions()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .priority(Priority.HIGH)
+                .placeholder(placeholder)
+
+            Glide.with(context)
+                .load(imageUri)
+                .apply(options)
+                .listener(glideCallback)
+                .into(imageView)
+
+        }catch (ex : java.lang.Exception){
+            ex.printStackTrace()
+            if (error != null) {
+                imageView.setImageDrawable(error)
+                parent.removeView(loadingBinding?.root)
+            }
+        }
+
+
+    }
+
     @SuppressLint("LogNotTimber")
     @JvmStatic
     @BindingAdapter("bind:drawableId")
