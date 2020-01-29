@@ -3,13 +3,15 @@ package com.mte.infrastructurebase.form_view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
 import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.form_view.interfaces.ILabelView
 import com.mte.infrastructurebase.form_view.interfaces.IValidationView
+import java.lang.Exception
 
- class FormControlView(
+class FormControlView(
     context: Context,
     attributeSet: AttributeSet? = null) : LinearLayout(context , attributeSet) , IFormControl {
 
@@ -21,9 +23,20 @@ import com.mte.infrastructurebase.form_view.interfaces.IValidationView
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        val count = childCount
-        for (i in 0 until count){
-            val child = getChildAt(i)
+        try {
+            addchildernViews(this)
+        }catch (ex : Exception){
+            ex.printStackTrace()
+        }
+    }
+
+    private fun addchildernViews(child: View) {
+
+        if(child is ViewGroup) {
+            for (i in 0 until child.childCount) {
+                addchildernViews(child.getChildAt(i))
+            }
+        }else {
 
             if(child is ILabelView)
                 labelView = child
@@ -37,12 +50,10 @@ import com.mte.infrastructurebase.form_view.interfaces.IValidationView
 
             fieldView?.setFormControl(this)
         }
-
-
-
     }
 
-     override fun isValid(): Boolean {
+
+    override fun isValid(): Boolean {
          validationView?.resetValidationView()
 
          if(fieldView?.isValid() == true)
