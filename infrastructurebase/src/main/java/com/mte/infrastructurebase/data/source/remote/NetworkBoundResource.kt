@@ -19,7 +19,7 @@ constructor(private val contextProviders: ContextProviders) {
         recreateCall()
     }
 
-    private fun recreateCall() {
+     fun recreateCall() {
         result.value = Resource.loading(null)
         val dbSource = loadFromDb() ?: MutableLiveData<ResultType>().apply { setValue(null)}
         result.addSource(dbSource) { data ->
