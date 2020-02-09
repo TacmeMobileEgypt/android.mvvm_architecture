@@ -1,6 +1,5 @@
 package com.mte.infrastructurebase.data.source.remote
 
-import com.mte.infrastructurebase.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -22,7 +21,7 @@ abstract class ApiServiceFactory {
             return synchronized(this) {
                 val instance = Retrofit.Builder()
                     .baseUrl(apiConfig.getHost())
-                    .client(provideOkHttpClient(apiConfig.getHeaders()))
+                    .client(provideOkHttpClient(apiConfig))
 //                    .addConverterFactory(MoshiConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(LiveDataCallAdapterFactory())
@@ -32,10 +31,10 @@ abstract class ApiServiceFactory {
             }
         }
 
-        private fun provideOkHttpClient(headers : HashMap<String, String>? = HashMap()): OkHttpClient {
+        private fun provideOkHttpClient(apiConfig : APIConfig? = null): OkHttpClient {
 
             val client = OkHttpClient.Builder()
-            client.addInterceptor(initializeHeaders(headers))//Todo()
+            client.addInterceptor(initializeHeaders(apiConfig))//Todo()
             client.readTimeout(60, TimeUnit.SECONDS);
             client.connectTimeout(60, TimeUnit.SECONDS);
 //            if(BuildConfig.DEBUG) {
@@ -49,7 +48,7 @@ abstract class ApiServiceFactory {
 
 
 
-        private fun initializeHeaders(headers : HashMap<String, String>? = HashMap()): Interceptor {
+        private fun initializeHeaders(apiConfig : APIConfig? = null): Interceptor {
 
 //            val headers = HashMap<String, String>()
 ////            token?.let {
@@ -65,7 +64,7 @@ abstract class ApiServiceFactory {
                 val original = chain.request()
                 val request: Request
                 val builder = original.newBuilder()
-                val headers = headers
+                val headers = apiConfig?.getHeaders()
                 headers?.forEach {
                     builder.header(it.key, it.value)
                 }
