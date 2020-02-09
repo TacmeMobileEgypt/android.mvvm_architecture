@@ -17,6 +17,16 @@
             tools:context=".modules.auth.recover_password.RecoverPasswordFragment">
 
 
+            <com.mte.infrastructurebase.form_view.fields_views.image_attachment.CircleImageAttachFieldView
+                android:id="@+id/profileImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_width="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
             <!--Image-->
             <ImageView
                 android:id="@+id/imageIV"

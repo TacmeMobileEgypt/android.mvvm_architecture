@@ -15,8 +15,7 @@ import java.net.UnknownHostException
 import java.util.regex.Pattern
 import kotlin.String as String1
 
-@Suppress("unused") // T is used in extending classes
-sealed class ApiResponse<T> {
+ sealed class ApiResponse<T> {
 
     companion object {
 
@@ -35,8 +34,8 @@ sealed class ApiResponse<T> {
                 val body = response.body()
 
                 if (body is BaseResponseModel && body.getSuccess() == null) {
-                    ApiErrorResponse(body.error ?: getCustomErrorMessage(Throwable(body.error)))
-                }else if (body == null || response.code() == 204) {
+                    ApiErrorResponse(body.getError() ?: getCustomErrorMessage(Throwable(body.getError())))
+                } else if (body == null || response.code() == 204) {
                     ApiEmptyResponse()
                 } else {
                     ApiSuccessResponse(
@@ -47,25 +46,21 @@ sealed class ApiResponse<T> {
 
             } else {
 
-                val msg = response.errorBody()?.string()
+                val errorBody = response.errorBody()?.string()
 
-                val error = Gson().fromJson(msg , ErrorRes::class.java)
+                val errorFromBody = ApiServiceFactory.errorHandler?.getErrorFromBody(errorBody)
 
-                val errorMsg = if (error.error?.isEmpty() == null) {
-                    response.message()
-                } else {
-                    error.error
-                }
+                val errorMsg = if(errorBody == null) response.message() else errorFromBody
 
                 ApiErrorResponse(errorMsg ?: getCustomErrorMessage(Throwable(errorMsg)))
             }
         }
 
         @SuppressLint("LogNotTimber")
-        fun getCustomErrorMessage(error: Throwable): String1 {
+        fun getCustomErrorMessage(error: Throwable): kotlin.String {
 
             val context = App.appInstance.applicationContext
-            Log.e(TAG , "getCustomErrorMessage ${error.message}")
+            Log.e(TAG, "getCustomErrorMessage ${error.message}")
 
             return if (error is SocketTimeoutException) {
                 context.getString(R.string.requestTimeOutError)
@@ -80,10 +75,7 @@ sealed class ApiResponse<T> {
             } else {
                 context.getString(R.string.unknownError)
             }
-
-
         }
-
     }
 }
 
@@ -134,8 +126,7 @@ data class ApiSuccessResponse<T>(
             return links
         }
 
-
     }
 }
 
-data class ApiErrorResponse<T>(val errorMessage: String1) : ApiResponse<T>()
+data class ApiErrorResponse<T >(val errorMessage: String1) : ApiResponse<T>()

@@ -12,6 +12,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.checkSelfPermission
 import com.mte.infrastructurebase.forms.fields.attachments.AttachItemModel
 import com.mte.infrastructurebase.forms.fields.attachments.FilePathUtils
+import com.mte.infrastructurebase.forms.fields.attachments.FileUtils
+import java.io.File
 
 
 abstract class BaseAttachments(
@@ -133,50 +135,40 @@ abstract class BaseAttachments(
         }
     }
 
-    /*GET Files Pathes */
-    private fun getAttachmentsFromIntent(data: Intent?): List<AttachItemModel?> {
+    /*GET Attachmodels */
+    private fun getAttachmentsFromIntent(intent: Intent?): List<AttachItemModel?> {
 
         val pathList = ArrayList<AttachItemModel?>()
 
-        if(activity == null) return pathList
+        val activity  = activity ?: return pathList
 
         try {
-            if (data?.clipData != null) {
-                val count = data.clipData?.itemCount ?: 0
+            if (intent?.clipData != null) {
+
+                val count = intent.clipData?.itemCount ?: 0
 
                 for (i in 0 until count) {
-                    val fileUri = data.clipData?.getItemAt(i)?.uri
+                    val fileUri = intent.clipData?.getItemAt(i)?.uri
+
                     if (fileUri != null) {
-                        val filePath: String? =
-                            FilePathUtils.getFilePath(
-                                activity,
-                                fileUri
-                            )
+                        val filePath: String? = FileUtils.getPath(activity, fileUri , intent)
+                        val filename: String? =  FileUtils.getFileName(activity, fileUri)
+
                         pathList.add(
-                            AttachItemModel(
-                                filePath,
-                                fileUri
-                            )
+                            AttachItemModel(filePath , fileUri , File(filePath))
                         )
                     }
                 }
 
-            } else if (data?.getData() != null) {
-                val fileUri = data.data
+            } else if (intent?.getData() != null) {
+                val fileUri = intent.data
                 if(fileUri != null ) {
-                    val filePath =
-                        FilePathUtils.getFilePath(
-                            activity,
-                            fileUri
-                        )
+                    val filePath: String? = FileUtils.getPath(activity, fileUri , intent)
+                    val filename: String? =  FileUtils.getFileName(activity, fileUri)
                     pathList.add(
-                        AttachItemModel(
-                            filePath,
-                            fileUri
-                        )
+                        AttachItemModel(filePath , fileUri , File(filePath))
                     )
                 }
-
             }
 
         } catch (ex: java.lang.Exception) {

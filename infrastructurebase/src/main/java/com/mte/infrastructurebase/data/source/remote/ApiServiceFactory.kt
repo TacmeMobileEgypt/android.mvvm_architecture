@@ -15,8 +15,12 @@ abstract class ApiServiceFactory {
 
     companion object {
 
+        var errorHandler : ErrorHandler ? = null
+
 
         fun <T> getService(apiConfig: APIConfig): T {
+
+            errorHandler = apiConfig.getErrorHandler()
 
             return synchronized(this) {
                 val instance = Retrofit.Builder()

@@ -5,8 +5,10 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.hamdy.infrastructurebase.utils.UtilsImageLoader
 import com.mte.baseinfrastructure.databinding.ActivityMainBinding
 import com.mte.baseinfrastructure.demo.DemoViewModel
 import com.mte.infrastructurebase.base.base_activity.BaseActivity
@@ -60,7 +62,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun initForm() {
+
+        UtilsImageLoader.loadImageUrl(
+            binding.profileImage ,
+            null,
+            ContextCompat.getDrawable(this , R.drawable.ic_launcher_background) ,
+            ContextCompat.getDrawable(this, R.drawable.ic_launcher_background) ,
+            true
+        )
+
+
         binding.fileAttach.activity = this
+        binding.profileImage.activity = this
         binding.organizationNameET.rules = listOf(Required("asdfasdf"))
 
         binding.submitBtn.setOnClickListener {
@@ -110,11 +123,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         fusedLocation?.onRequestPermissionsResult(requestCode, permissions, grantResults)
         binding.fileAttach.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        binding.profileImage.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         binding.fileAttach.onActivityResult(requestCode, resultCode, data)
+        binding.profileImage.onActivityResult(requestCode, resultCode, data)
     }
 }

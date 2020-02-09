@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import androidx.databinding.InverseBindingListener
+import com.hamdy.infrastructurebase.utils.UtilsImageLoader
+import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.attachments.OnAttachmentSelectedListener
 import com.mte.infrastructurebase.form_view.fields_views.attachments.ImageAttachment
 import com.mte.infrastructurebase.form_view.interfaces.IFieldView
@@ -76,8 +79,19 @@ open class CircleImageAttachFieldView(
 
             formControl?.isValid()
 
-            if(attachItemModel?.fileUri != null)
-                setImageURI(attachItemModel?.fileUri)
+            if(attachItemModel?.fileUri != null) {
+//                setImageDrawable(null)
+//                setImageURI(attachItemModel?.fileUri)
+
+                UtilsImageLoader.loadImageUri(
+                    this ,
+                    attachItemModel.fileUri,
+                    null ,
+                    null,
+                    true
+                )
+
+            }
 
         } catch (ex: Exception) {
             ex.printStackTrace()
