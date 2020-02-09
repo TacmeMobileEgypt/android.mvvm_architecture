@@ -10,6 +10,9 @@ import androidx.lifecycle.Observer
 import com.mte.baseinfrastructure.databinding.ActivityMainBinding
 import com.mte.baseinfrastructure.demo.DemoViewModel
 import com.mte.infrastructurebase.base.base_activity.BaseActivity
+import com.mte.infrastructurebase.custom_form.FormValidation
+import com.mte.infrastructurebase.custom_form.FormValidationError
+import com.mte.infrastructurebase.custom_form.FormValidationHandler
 import com.mte.infrastructurebase.form_view.interfaces.IFormControl
 import com.mte.infrastructurebase.form_view.interfaces.ValidationFieldViewHandler
 import com.mte.infrastructurebase.form_view.validationRules.Required
@@ -61,22 +64,42 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.organizationNameET.rules = listOf(Required("asdfasdf"))
 
         binding.submitBtn.setOnClickListener {
-            binding.form.validate(object : ValidationFieldViewHandler{
-                override fun onSuccess() {
-//                TODO("Not yet implemented")
-                }
 
-                override fun onFailure(fields: ArrayList<IFormControl?>) {
-                    fields?.forEach {
-                        it?.getValidationView()?.showValidateError()
-                        val field = it?.getFiledView()
-                        if(field is EditText)
-                            field.requestFocus()
+
+            FormValidation()
+                .addField("", R.id.bottom , listOf(Required(getString(R.string.attachments))))
+                .addField("dfg", R.id.bottom , listOf(Required(getString(R.string.attachments))))
+                .addField("", R.id.bottom , listOf(Required(getString(R.string.errorMessage))))
+                .addField("sdg", R.id.bottom , listOf(Required(getString(R.string.attachments))))
+                .validate(object : FormValidationHandler{
+                    override fun onSuccess() {
                     }
-                }
 
-            })
+                    override fun onFailure(fields: ArrayList<FormValidationError?>) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+//            binding.form.validate(object : ValidationFieldViewHandler{
+//                override fun onSuccess() {
+////                TODO("Not yet implemented")
+//                }
+//
+//                override fun onFailure(fields: ArrayList<IFormControl?>) {
+//                    fields?.forEach {
+//                        it?.getValidationView()?.showValidateError()
+//                        val field = it?.getFiledView()
+//                        if(field is EditText)
+//                            field.requestFocus()
+//                    }
+//                }
+//
+//            })
         }
+
+
+
     }
 
     override fun onRequestPermissionsResult(
