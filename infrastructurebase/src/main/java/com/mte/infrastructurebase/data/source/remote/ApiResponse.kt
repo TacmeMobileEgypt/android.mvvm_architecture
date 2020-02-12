@@ -10,6 +10,7 @@ import com.mte.infrastructurebase.R
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.regex.Pattern
@@ -24,7 +25,7 @@ import kotlin.String as String1
         @SuppressLint("LogNotTimber")
         fun <T> create(error: Throwable): ApiErrorResponse<T> {
             Log.e("ApiResponse", error.message)
-            return ApiErrorResponse(getCustomErrorMessage(error))
+            return ApiErrorResponse(ApiServiceFactory.errorHandler?.getHttpExceptionError(error)?: getCustomErrorMessage(error))
         }
 
         fun <T> create(response: Response<T>): ApiResponse<T> {
@@ -59,8 +60,9 @@ import kotlin.String as String1
         @SuppressLint("LogNotTimber")
         fun getCustomErrorMessage(error: Throwable): kotlin.String {
 
+            Log.e("ApiResponse" , error.message)
+
             val context = App.appInstance.applicationContext
-            Log.e(TAG, "getCustomErrorMessage ${error.message}")
 
             return if (error is SocketTimeoutException) {
                 context.getString(R.string.requestTimeOutError)
@@ -68,10 +70,12 @@ import kotlin.String as String1
                 context.getString(R.string.responseMalformedJson)
             } else if (error is UnknownHostException) {
                 context.getString(R.string.unknownError)
+            } else if (error is ConnectException) {
+                context.getString(R.string.networkError)
             } else if (error is IOException) {
                 context.getString(R.string.networkError)
             } else if (error is HttpException) {
-                error.response().message()
+                context.getString(R.string.unknownError)
             } else {
                 context.getString(R.string.unknownError)
             }
