@@ -268,12 +268,7 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
             if(msg == null)
                 wrapEmptyData?.addEmptyView(root)
-            else wrapEmptyData?.addEmptyView(root , msg  , object : OnRetryClick{
-                override fun onRetry() {
-                    onRetryClick?.invoke()
-                }
-
-            })
+            else wrapEmptyData?.addEmptyView(root , msg)
         }
 
     }

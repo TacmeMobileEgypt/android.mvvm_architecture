@@ -4,6 +4,6 @@ import android.view.ViewGroup
 
 interface IWrapEmptyData {
 
-    fun addEmptyView(root: ViewGroup? , msge : String? = null , onRetryClick : OnRetryClick)
+    fun addEmptyView(root: ViewGroup? , msge : String? = null)
     fun addEmptyView(root: ViewGroup? )
 }

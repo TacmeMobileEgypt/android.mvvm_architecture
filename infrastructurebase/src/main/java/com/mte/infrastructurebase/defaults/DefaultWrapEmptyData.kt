@@ -11,7 +11,7 @@ import com.mte.infrastructurebase.base.base_activity.OnRetryClick
 import com.mte.infrastructurebase.databinding.DefaultEmptyDataLayoutBinding
 
 
-class DefaultWrapEmptyData(val context: Context, val retryText : String? ="Retry") : IWrapEmptyData {
+class DefaultWrapEmptyData(val context: Context) : IWrapEmptyData {
 
     private var databinding: DefaultEmptyDataLayoutBinding? = null
 
@@ -25,12 +25,12 @@ class DefaultWrapEmptyData(val context: Context, val retryText : String? ="Retry
          databinding =  DataBindingUtil.bind<DefaultEmptyDataLayoutBinding>(LayoutInflater.from(context).inflate(layoutId, null) )
     }
 
-    override fun addEmptyView(root: ViewGroup?, msge: String?, onRetryClick: OnRetryClick) {
+    override fun addEmptyView(root: ViewGroup?, msge: String?) {
 
         root?.removeAllViews()
         databinding?.text = msge
-        databinding?.tryAgainText = retryText
-        databinding?.iTryClick = onRetryClick
+//        databinding?.tryAgainText = retryText
+//        databinding?.iTryClick = onRetryClick
 
         if (databinding?.root?.parent != null) {
             (databinding?.root?.parent as ViewGroup).removeView(databinding?.root) // <- fix
@@ -42,7 +42,7 @@ class DefaultWrapEmptyData(val context: Context, val retryText : String? ="Retry
     override fun addEmptyView(root: ViewGroup?) {
         root?.removeAllViews()
         databinding?.text = "No Data Found"
-        databinding?.tryAgainText = retryText
+//        databinding?.tryAgainText = retryText
          if(databinding?.root?.parent != null){
             (databinding?.root?.parent as ViewGroup).removeView(databinding?.root)
         }
