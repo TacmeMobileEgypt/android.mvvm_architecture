@@ -2,6 +2,7 @@ package com.mte.infrastructurebase.defaults
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.mte.infrastructurebase.R
@@ -38,12 +39,11 @@ class DefaultWrapEmptyData(val context: Context, val retryText : String? ="Retry
         root?.addView(databinding?.root)
     }
 
-    override fun addEmptyView(root: ViewGroup?, onRetryClick: OnRetryClick) {
+    override fun addEmptyView(root: ViewGroup?) {
         root?.removeAllViews()
         databinding?.text = "No Data Found"
         databinding?.tryAgainText = retryText
-        databinding?.iTryClick = onRetryClick
-        if(databinding?.root?.parent != null){
+         if(databinding?.root?.parent != null){
             (databinding?.root?.parent as ViewGroup).removeView(databinding?.root)
         }
         root?.addView(databinding?.root)
