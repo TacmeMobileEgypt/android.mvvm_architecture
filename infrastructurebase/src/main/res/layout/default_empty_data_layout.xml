@@ -38,6 +38,14 @@
                 tools:text="No Data found"
                 android:text="@{text}" />
 
+
+         <!--   <include
+
+                android:id="@+id/tryAgainLayout"
+                layout="@layout/try_again_btn_layout"
+                app:iTryClick="@{iTryClick}"
+                app:tryAgainText="@{tryAgainText}" />-->
+
         </LinearLayout>
     </FrameLayout>
 
