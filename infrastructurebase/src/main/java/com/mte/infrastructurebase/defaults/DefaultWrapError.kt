@@ -17,7 +17,7 @@ class DefaultWrapError(val context: Context , val retryText : String? ="Retry") 
     override fun addErrorView(root: ViewGroup?, msge: String?, onRetryClick: OnRetryClick) {
         databinding =  DataBindingUtil.bind<DefaultErrorLayoutBinding>(LayoutInflater.from(context).inflate(layoutId , null) )
         root?.removeAllViews()
-        databinding?.text = msge ?: "An error occurred"
+        databinding?.text = msge ?: context.getString(R.string.networkErrorCode)
         databinding?.tryAgainText = retryText
         databinding?.iTryClick = onRetryClick
         root?.addView(databinding?.root)

@@ -9,13 +9,14 @@
     <string name="attachments">المرفقات</string>
 
     <!-- Network Errors-->
-    <string name="networkError">أنت غير متصل بشبكة wifi او شبكة خلوية حاول الاتصال والمحاولة مرة اخري</string>
+    <string name="networkError">@string/networkErrorCode</string>
     <string name="networkErrorCode">لا يوجد اتصال بالإنترنت</string>
-    <string name="unknownError">هناك خطأ ما</string>
-    <string name="requestTimeOutError">لم نتمكن من إستجابة طلبك في الوقت المناسب.حاول مرة اخري</string>
-    <string name="errorCodeMalformedJson">MALFORMED_JSON</string>
-    <string name="responseMalformedJson">يوجد خطأ حاول الاتصال مرة أخري</string>
-    <string name="errorCodeConnectFailed">فشل الإتصال</string>
-    <string name="responseConnectFailed">انتهي الإتصال</string>
+    <string name="unknownError">لقد حدث خطأ يرجى المحاولة مرة اخرى</string>
+    <string name="requestTimeOutError">@string/unknownError</string>
+    <string name="errorCodeMalformedJson">@string/unknownError</string>
+    <string name="responseMalformedJson">@string/unknownError</string>
+    <string name="errorCodeConnectFailed">@string/unknownError</string>
+    <string name="responseConnectFailed">@string/unknownError</string>
+    <!--  End Network errors  -->
 
 </resources>

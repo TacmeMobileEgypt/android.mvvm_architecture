@@ -22,7 +22,7 @@ abstract class BaseRVAdapter<T , BINDING : ViewDataBinding>(val context: Context
 
     open val emptyDataText: String? = context?.getString(R.string.notDataFound)
     open val retryAgainText: String? = context?.getString(R.string.retryText)
-    open val errorMessage : String? = context?.getString(R.string.errorMessage)
+    open val errorMessage : String? = context?.getString(R.string.unknownError)
 
     @get:LayoutRes
     abstract val  itemLayoutRes : Int
@@ -128,7 +128,7 @@ abstract class BaseRVAdapter<T , BINDING : ViewDataBinding>(val context: Context
 
         fun bind(resource: Resource<*>?) {
             val binding = DataBindingUtil.bind<DefaultErrorLayoutBinding>(itemView)
-            binding?.text = errorMessage
+            binding?.text = resource?.message?: errorMessage
             binding?.tryAgainText = retryAgainText
             binding?.iTryClick = object : OnRetryClick{
                 override fun onRetry() {
@@ -144,12 +144,12 @@ abstract class BaseRVAdapter<T , BINDING : ViewDataBinding>(val context: Context
         fun bind(resource: Resource<*>?) {
             val binding = DataBindingUtil.bind<DefaultEmptyDataLayoutBinding>(itemView)
             binding?.text = emptyDataText
-            binding?.tryAgainText = retryAgainText
-            binding?.iTryClick = object : OnRetryClick{
+//            binding?.tryAgainText = retryAgainText
+     /*       binding?.iTryClick = object : OnRetryClick{
                 override fun onRetry() {
                     this@BaseRVAdapter.onRetry()
                 }
-            }
+            }*/
 
         }
     }
