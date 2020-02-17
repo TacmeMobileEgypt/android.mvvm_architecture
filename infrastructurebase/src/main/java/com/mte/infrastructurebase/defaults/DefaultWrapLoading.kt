@@ -12,20 +12,9 @@ class DefaultWrapLoading(val context: Context) : IWrapLoading {
 
     var layoutIdLoading : Int = R.layout.layout_loading_dialog_default
 
-    init {
-        init()
-    }
-
-    private fun init() {
-      loadingView =  LayoutInflater.from(context).inflate(layoutIdLoading, null, false)
-
-    }
-
     override fun addLoadingView(root: ViewGroup?) {
+        loadingView =  LayoutInflater.from(context).inflate(layoutIdLoading, null, false)
         root?.removeAllViews()
-        if(loadingView?.parent != null){
-            (loadingView?.parent as ViewGroup).removeView(loadingView)
-        }
         root?.addView(loadingView)
     }
 }

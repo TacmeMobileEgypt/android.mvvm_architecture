@@ -16,24 +16,14 @@ class DefaultWrapEmptyData(val context: Context, val retryText : String? ="Retry
 
     var layoutId : Int = R.layout.default_empty_data_layout
 
-    init {
-        init()
-    }
-
-    private fun init() {
-         databinding =  DataBindingUtil.bind<DefaultEmptyDataLayoutBinding>(LayoutInflater.from(context).inflate(layoutId, null) )
-    }
 
     override fun addEmptyView(root: ViewGroup?, msge: String?, onRetryClick: OnRetryClick) {
+        databinding =  DataBindingUtil.bind<DefaultEmptyDataLayoutBinding>(LayoutInflater.from(context).inflate(layoutId, null) )
 
         root?.removeAllViews()
         databinding?.text = msge
         databinding?.tryAgainText = retryText
         databinding?.iTryClick = onRetryClick
-
-        if (databinding?.root?.parent != null) {
-            (databinding?.root?.parent as ViewGroup).removeView(databinding?.root) // <- fix
-        }
 
         root?.addView(databinding?.root)
     }
