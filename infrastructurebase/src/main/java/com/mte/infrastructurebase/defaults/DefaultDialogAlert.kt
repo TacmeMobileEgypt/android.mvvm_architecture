@@ -102,6 +102,24 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String? = "Yes"
         messageDialog?.show()
     }
 
+    override fun showSuccessMsg(msg: String, title: String? ,onYesClick:()->Unit) {
+
+        if(messageDialog?.isShowing == true) return
+
+        builder?.setTitle(title)
+        builder?.setMessage(msg)
+
+        //Yes Action
+        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+            onYesClick.invoke()
+            dialog.dismiss()
+        })
+
+        messageDialog = builder?.create()
+
+        messageDialog?.show()
+    }
+
     override fun showConfirmationMsg(msg: String, confirmHandler: ConfirmHandler , title : String? ) {
 
 

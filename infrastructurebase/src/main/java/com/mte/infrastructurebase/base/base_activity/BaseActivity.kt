@@ -194,6 +194,10 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         if(message == null) return
         runOnUiThread { dialogAlert?.showSuccessMsg(message) }
     }
+    fun showSuccessMsgDialog(message: String? ,onYesClick:()->Unit) {
+        if(message == null) return
+        runOnUiThread { dialogAlert?.showSuccessMsg(message,onYesClick = onYesClick) }
+    }
 
     /**
      * show Error message dialog

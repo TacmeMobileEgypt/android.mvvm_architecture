@@ -156,6 +156,17 @@ abstract class BaseFragment < D : ViewDataBinding>:Fragment() {
         }
     }
 
+    fun showSuccessMsgDialog(message : String?,onYesClick:()->Unit) {
+
+        if(message == null) return
+
+        activity?.let {
+            if (it is BaseActivity<*>) {
+                it.showSuccessMsgDialog(message,onYesClick)
+            }
+        }
+    }
+
     fun showInfoMsgDialog(message : String?) {
 
         if(message == null) return
