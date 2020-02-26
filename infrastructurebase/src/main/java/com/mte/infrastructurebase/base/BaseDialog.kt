@@ -22,7 +22,7 @@ import com.mte.infrastructurebase.base.base_activity.BaseActivity
 
 abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
 
-    private lateinit var alertDialog: AlertDialog
+    protected lateinit var alertDialog: AlertDialog
     lateinit var binding: T
 
     @get:StringRes
@@ -179,4 +179,48 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
                 InputMethodManager.HIDE_NOT_ALWAYS
             )
         }}
+
+
+    fun showSuccessMsgDialog(message : String?) {
+
+        if(message == null) return
+
+        activity?.let {
+            if (it is BaseActivity<*>) {
+                it.showSuccessMsgDialog(message)
+            }
+        }
+    }
+
+    fun showSuccessMsgDialog(message : String?,onYesClick:()->Unit) {
+
+        if(message == null) return
+
+        activity?.let {
+            if (it is BaseActivity<*>) {
+                it.showSuccessMsgDialog(message,onYesClick)
+            }
+        }
+    }
+
+
+
+    fun showWarningMsgDialog(message : String?) {
+
+        if(message == null) return
+
+        activity?.let {
+            if (it is BaseActivity<*>) {
+                it.showWarningMsgDialog(message)
+            }
+        }
+    }
+
+    fun showConfirmMessagDialog(message : String , yesAction : () -> Unit) {
+        activity?.let {
+            if (it is BaseActivity<*>) {
+                it.showConfirmMessagDialog(message , yesAction)
+            }
+        }
+    }
 }
