@@ -22,7 +22,7 @@ import com.mte.infrastructurebase.base.base_activity.BaseActivity
 
 abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
 
-    protected lateinit var alertDialog: AlertDialog
+    protected  var alertDialog: AlertDialog?= null
     lateinit var binding: T
 
     @get:StringRes
@@ -37,25 +37,14 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-         val alertBuilder =  AlertDialog.Builder(activity!!)
-//            .setIcon(R.drawable.alert_dialog_icon)
-//            .setTitle(titleRes)
-//            .setView(binding.root)
-//            .setPositiveButton(R.string.alert_dialog_ok,
-//                object : DialogInterface.OnClickListener() {
-//                    fun onClick(dialog: DialogInterface?, whichButton: Int) {
-//                        (activity as FragmentAlertDialog?).doPositiveClick()
-//                    }
-//                }
-//            )
-//            .setNegativeButton(R.string.alert_dialog_cancel,
-//                object : OnClickListener() {
-//                    fun onClick(dialog: DialogInterface?, whichButton: Int) {
-//                        (activity as FragmentAlertDialog?).doNegativeClick()
-//                    }
-//                }
-//            )
+        alertDialog =  createDialog()
 
+        return alertDialog ?: super.onCreateDialog(savedInstanceState)
+    }
+
+    open fun createDialog(): AlertDialog? {
+
+        val alertBuilder =  AlertDialog.Builder(activity!!)
 
         if(titleRes != -1) alertBuilder.setTitle(titleRes)
 
@@ -65,37 +54,18 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
     }
 
     open fun setTitle(title : String){
-        alertDialog.setTitle(title)
+        alertDialog?.setTitle(title)
     }
 
     open fun setTitle(title : Int){
-        alertDialog.setTitle(title)
+        alertDialog?.setTitle(title)
     }
 
-    /*override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val root = RelativeLayout(activity)
-        root.layoutParams =
-                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        val dialog = Dialog(activity)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(root)
-
-        dialog.window?.let {
-            it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            if (isFullWidth()) {
-                it.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            } else {
-                it.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            }
-        }
-
-        return dialog
-    }*/
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        alertDialog.window?.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
-        alertDialog.setView(binding.root)
+        alertDialog?.window?.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
+        alertDialog?.setView(binding.root)
         return binding.root
     }
 
