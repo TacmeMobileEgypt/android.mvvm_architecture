@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import com.mte.infrastructurebase.base.base_activity.ConfirmHandler
 import com.mte.infrastructurebase.base.base_activity.IDialogAlert
 
-class DefaultDialogAlert(val context: Context , val yesBtnText : String? = "Yes" , val noBtnText : String? = "No" ) : IDialogAlert {
+class DefaultDialogAlert(val context: Context , val yesBtnText : String , val noBtnText : String ) : IDialogAlert {
 
 
     private var builder: AlertDialog.Builder? = null

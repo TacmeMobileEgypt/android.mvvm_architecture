@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mte.infrastructurebase.R
 import com.mte.infrastructurebase.base.BaseDialog
 import com.mte.infrastructurebase.defaults.*
 import com.mte.infrastructurebase.utils.KeyboardUtils
@@ -47,7 +48,7 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     open fun init() {
         dialogLoading   = DefaultDialogLoading(this)
-        dialogAlert     = DefaultDialogAlert(this)
+        dialogAlert     = DefaultDialogAlert(this , getString(R.string.ok),getString(R.string.cancel))
         wrapLoading     = DefaultWrapLoading(this)
         wrapError       = DefaultWrapError(this)
         wrapEmptyData   = DefaultWrapEmptyData(this)
@@ -204,7 +205,9 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
      */
     fun showErrorMsgDialog(message: String?) {
         if(message == null) return
-        runOnUiThread { dialogAlert?.showErrorMsg(message) }
+        runOnUiThread { dialogAlert?.showErrorMsg(message)
+
+        }
     }
 
     /**
