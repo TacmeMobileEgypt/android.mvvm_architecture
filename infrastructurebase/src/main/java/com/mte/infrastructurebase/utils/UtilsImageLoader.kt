@@ -156,7 +156,7 @@ object  UtilsImageLoader {
             }
 
             val options = RequestOptions()
-                .centerCrop()
+//                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .priority(Priority.HIGH)
                 .placeholder(placeholder)
