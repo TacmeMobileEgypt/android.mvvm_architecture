@@ -17,6 +17,8 @@
     <string name="responseMalformedJson">@string/unknownError</string>
     <string name="errorCodeConnectFailed">@string/unknownError</string>
     <string name="responseConnectFailed">@string/unknownError</string>
+    <string name="ok">حسنا</string>
+    <string name="cancel">إلغاء</string>
     <!--  End Network errors  -->
 
 </resources>
