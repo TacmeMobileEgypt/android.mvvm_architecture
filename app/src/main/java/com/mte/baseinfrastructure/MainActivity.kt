@@ -71,6 +71,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             true
         )
 
+        binding.segmentedBtn.rules =
+            listOf(Required("gender_required_message"))
 
         binding.fileAttach.activity = this
         binding.profileImage.activity = this
@@ -79,7 +81,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.submitBtn.setOnClickListener {
 
 
-            FormValidation()
+            /*FormValidation()
                 .addField("", R.id.bottom , listOf(Required(getString(R.string.attachments))))
                 .addField("dfg", R.id.bottom , listOf(Required(getString(R.string.attachments))))
                 .addField("", R.id.bottom , listOf(Required(getString(R.string.errorMessage))))
@@ -92,23 +94,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         TODO("Not yet implemented")
                     }
 
-                })
+                })*/
 
-//            binding.form.validate(object : ValidationFieldViewHandler{
-//                override fun onSuccess() {
-////                TODO("Not yet implemented")
-//                }
-//
-//                override fun onFailure(fields: ArrayList<IFormControl?>) {
-//                    fields?.forEach {
-//                        it?.getValidationView()?.showValidateError()
-//                        val field = it?.getFiledView()
-//                        if(field is EditText)
-//                            field.requestFocus()
-//                    }
-//                }
-//
-//            })
+            binding.form.validate(object : ValidationFieldViewHandler{
+                override fun onSuccess() {
+//                TODO("Not yet implemented")
+                }
+
+                override fun onFailure(fields: ArrayList<IFormControl?>) {
+                    fields?.forEach {
+
+
+
+                        it?.getValidationView()?.showValidateError()
+                        val field = it?.getFiledView()
+                        if(field is EditText)
+                            field.requestFocus()
+                    }
+                }
+
+            })
         }
 
 

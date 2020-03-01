@@ -183,6 +183,41 @@
             </com.mte.infrastructurebase.form_view.FormControlView>
 
 
+            <!--Segmented-->
+            <com.mte.infrastructurebase.form_view.FormControlView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.mte.infrastructurebase.form_view.fields_views.radio_group.RadioGroupFieldView
+                    android:id="@+id/segmentedBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="userManagementText">
+
+
+                    <RadioButton
+                        android:id="@+id/maleRB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="male"/>
+
+                    <RadioButton
+                        android:id="@+id/femaleRB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="female"/>
+
+                </com.mte.infrastructurebase.form_view.fields_views.radio_group.RadioGroupFieldView>
+
+                <com.mte.infrastructurebase.form_view.ValidationView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/validationErrorStyles"/>
+
+            </com.mte.infrastructurebase.form_view.FormControlView>
+
+
             <!--File Attach-->
             <com.mte.infrastructurebase.form_view.FormControlView
                 android:layout_width="match_parent"
