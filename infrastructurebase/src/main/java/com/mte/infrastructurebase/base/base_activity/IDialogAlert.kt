@@ -9,5 +9,6 @@ interface IDialogAlert {
     fun showSuccessMsg(msg : String , title : String? = null)
     fun showSuccessMsg(msg : String , title : String? = null,onYesClick:()->Unit)
     fun showConfirmationMsg(msg : String , confirmHandler : ConfirmHandler , title : String? = null)
+    fun showConfirmationMsg(msg : String , confirmHandler : ConfirmHandler ,onDismissHandel:()->Unit , title : String? = null)
 
 }

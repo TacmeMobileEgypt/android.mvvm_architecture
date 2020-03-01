@@ -232,6 +232,17 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         }
     }
 
+    fun showConfirmMessagDialog(message: String?, yesAction: () -> Unit ,onCancelClick:()->Unit) {
+        if(message == null) return
+        runOnUiThread {
+            dialogAlert?.showConfirmationMsg(message, object : ConfirmHandler {
+                override fun onConfirmed() {
+                    yesAction.invoke()
+                }
+            },onDismissHandel = onCancelClick)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

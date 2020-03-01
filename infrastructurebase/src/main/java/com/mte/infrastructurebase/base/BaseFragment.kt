@@ -197,6 +197,14 @@ abstract class BaseFragment < D : ViewDataBinding>:Fragment() {
         }
     }
 
+    fun showConfirmMessagDialog(message : String , yesAction : () -> Unit ,onCncelClick:()->Unit) {
+        activity?.let {
+            if (it is BaseActivity<*>) {
+                it.showConfirmMessagDialog(message , yesAction ,onCncelClick)
+            }
+        }
+    }
+
 
 
     fun openDialogFragment(dialogListFragment: BaseDialog<*>) {

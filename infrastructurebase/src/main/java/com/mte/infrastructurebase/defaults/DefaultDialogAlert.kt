@@ -6,14 +6,15 @@ import androidx.appcompat.app.AlertDialog
 import com.mte.infrastructurebase.base.base_activity.ConfirmHandler
 import com.mte.infrastructurebase.base.base_activity.IDialogAlert
 
-class DefaultDialogAlert(val context: Context , val yesBtnText : String , val noBtnText : String ) : IDialogAlert {
+class DefaultDialogAlert(val context: Context, val yesBtnText: String, val noBtnText: String) :
+    IDialogAlert {
 
 
     private var builder: AlertDialog.Builder? = null
-    private  var messageDialog: AlertDialog? = null
-    var themeId : Int = -1
+    private var messageDialog: AlertDialog? = null
+    var themeId: Int = -1
 
-    var isCancelable : Boolean = false
+    var isCancelable: Boolean = false
 
 
     init {
@@ -23,25 +24,25 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String , val no
 
     private fun init() {
 
-        builder  = if (themeId != -1)
-            AlertDialog.Builder(context ,themeId) else AlertDialog.Builder(context)
+        builder = if (themeId != -1)
+            AlertDialog.Builder(context, themeId) else AlertDialog.Builder(context)
 
         builder?.setCancelable(isCancelable)
 
     }
 
 
-    override fun showInfoMsg(msg: String , title : String?) {
+    override fun showInfoMsg(msg: String, title: String?) {
 
 
-        if(messageDialog?.isShowing == true) return
+        if (messageDialog?.isShowing == true) return
 
 
         builder?.setTitle(title)
         builder?.setMessage(msg)
 
         //Yes Action
-        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+        builder?.setPositiveButton(yesBtnText, DialogInterface.OnClickListener { dialog, which ->
             dialog.dismiss()
         })
 
@@ -50,16 +51,16 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String , val no
         messageDialog?.show()
     }
 
-    override fun showWarningMsg(msg: String , title : String?) {
+    override fun showWarningMsg(msg: String, title: String?) {
 
-        if(messageDialog?.isShowing == true) return
+        if (messageDialog?.isShowing == true) return
 
 
         builder?.setTitle(title)
         builder?.setMessage(msg)
 
         //Yes Action
-        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+        builder?.setPositiveButton(yesBtnText, DialogInterface.OnClickListener { dialog, which ->
             dialog.dismiss()
         })
 
@@ -68,15 +69,15 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String , val no
         messageDialog?.show()
     }
 
-    override fun showErrorMsg(msg: String , title : String? ) {
+    override fun showErrorMsg(msg: String, title: String?) {
 
-        if(messageDialog?.isShowing == true) return
+        if (messageDialog?.isShowing == true) return
 
         builder?.setTitle(title)
         builder?.setMessage(msg)
 
         //Yes Action
-        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+        builder?.setPositiveButton(yesBtnText, DialogInterface.OnClickListener { dialog, which ->
             dialog.dismiss()
         })
 
@@ -87,13 +88,13 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String , val no
 
     override fun showSuccessMsg(msg: String, title: String?) {
 
-        if(messageDialog?.isShowing == true) return
+        if (messageDialog?.isShowing == true) return
 
         builder?.setTitle(title)
         builder?.setMessage(msg)
 
         //Yes Action
-        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+        builder?.setPositiveButton(yesBtnText, DialogInterface.OnClickListener { dialog, which ->
             dialog.dismiss()
         })
 
@@ -102,15 +103,15 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String , val no
         messageDialog?.show()
     }
 
-    override fun showSuccessMsg(msg: String, title: String? ,onYesClick:()->Unit) {
+    override fun showSuccessMsg(msg: String, title: String?, onYesClick: () -> Unit) {
 
-        if(messageDialog?.isShowing == true) return
+        if (messageDialog?.isShowing == true) return
 
         builder?.setTitle(title)
         builder?.setMessage(msg)
 
         //Yes Action
-        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+        builder?.setPositiveButton(yesBtnText, DialogInterface.OnClickListener { dialog, which ->
             onYesClick.invoke()
             dialog.dismiss()
         })
@@ -120,21 +121,27 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String , val no
         messageDialog?.show()
     }
 
-    override fun showConfirmationMsg(msg: String, confirmHandler: ConfirmHandler , title : String? ) {
+    override fun showConfirmationMsg(msg: String, confirmHandler: ConfirmHandler, title: String?) {
 
+        confirmationImpelimantaion(msg, confirmHandler, title) {
+        }
 
-        if(messageDialog?.isShowing == true) return
+    }
+
+    fun confirmationImpelimantaion(msg: String, confirmHandler: ConfirmHandler, title: String? ,onDismissHandel: () -> Unit) {
+        if (messageDialog?.isShowing == true) return
 
         builder?.setTitle(title)
         builder?.setMessage(msg)
 
         //Yes Action
-        builder?.setPositiveButton(yesBtnText , DialogInterface.OnClickListener{ dialog, which ->
+        builder?.setPositiveButton(yesBtnText, DialogInterface.OnClickListener { dialog, which ->
             dialog.dismiss()
             confirmHandler.onConfirmed()
         })
 
-        builder?.setNegativeButton(noBtnText , DialogInterface.OnClickListener{ dialog, which ->
+        builder?.setNegativeButton(noBtnText, DialogInterface.OnClickListener { dialog, which ->
+            onDismissHandel.invoke()
             dialog.dismiss()
         })
 
@@ -142,4 +149,15 @@ class DefaultDialogAlert(val context: Context , val yesBtnText : String , val no
 
         messageDialog?.show()
     }
+
+    override fun showConfirmationMsg(
+        msg: String,
+        confirmHandler: ConfirmHandler,
+        onDismissHandel: () -> Unit,
+        title: String?
+    ) {
+        confirmationImpelimantaion(msg, confirmHandler, title) {
+            onDismissHandel.invoke()
+        }    }
+
 }
