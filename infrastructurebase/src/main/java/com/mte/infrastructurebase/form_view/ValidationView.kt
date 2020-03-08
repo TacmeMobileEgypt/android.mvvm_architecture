@@ -24,7 +24,7 @@ open class ValidationView(
     }
 
     override fun resetValidationView() {
-        setText(null)
+//        setText(null)
         visibility = View.GONE
     }
 
