@@ -26,7 +26,7 @@ open class RadioGroupFieldView(
 
     val validationMessages: ArrayList<String>? = ArrayList()
 
-    val onCheckChangeListener : OnCheckedChangeListener? = null
+    var onCheckChangeListener : OnCheckedChangeListener? = null
 
 
     init {
