@@ -26,6 +26,8 @@ open class RadioGroupFieldView(
 
     val validationMessages: ArrayList<String>? = ArrayList()
 
+    val onCheckChangeListener : OnCheckedChangeListener? = null
+
 
     init {
         init()
@@ -35,6 +37,7 @@ open class RadioGroupFieldView(
 
         setOnCheckedChangeListener(object : OnCheckedChangeListener{
             override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
+                onCheckChangeListener?.onCheckedChanged(p0 , p1)
                 attrChange?.onChange()
             }
         })
