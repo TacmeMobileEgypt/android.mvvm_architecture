@@ -11,6 +11,7 @@
     <string name="networkErrorCode">No Internet Connection</string>
     <string name="unknownError">An error has occurred please try again!</string>
     <string name="requestTimeOutError">No Internet Connection</string>
+    <string name="expired">Your login session is expired. Please login again</string>
     <string name="errorCodeMalformedJson">@string/unknownError</string>
     <string name="responseMalformedJson">@string/unknownError</string>
     <string name="errorCodeConnectFailed">Connection failed</string>

@@ -65,7 +65,13 @@ import kotlin.String as String1
             val context = App.appInstance.applicationContext
 
             return if (error is SocketTimeoutException) {
-                context.getString(R.string.requestTimeOutError)
+                if(error.message?.contains("401",true)==true){
+                    context.getString(R.string.expired)
+
+                }else{
+                    context.getString(R.string.requestTimeOutError)
+
+                }
             } else if (error is MalformedJsonException) {
                 context.getString(R.string.responseMalformedJson)
             } else if (error is UnknownHostException) {
