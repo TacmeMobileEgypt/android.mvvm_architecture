@@ -32,7 +32,7 @@ class FormControlView(
 
     private fun addchildernViews(child: View) {
 
-        if(child is ViewGroup) {
+        if(child is ViewGroup && !( (child is ILabelView)  || (child is  IFieldView<*>) || (child is IValidationView) )) {
             for (i in 0 until child.childCount) {
                 addchildernViews(child.getChildAt(i))
             }
